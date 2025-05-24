@@ -82,7 +82,7 @@ const Reviews = () => {
         </div>
 
         {/* Слайдер отзывов */}
-        <div className="relative px-12">
+        <div className="relative">
           <Carousel
             opts={{
               align: "start",
@@ -113,9 +113,16 @@ const Reviews = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2" />
-            <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2" />
+            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 h-10 w-10 border-0 bg-white/80 hover:bg-white text-nature-green-600" />
+            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 h-10 w-10 border-0 bg-white/80 hover:bg-white text-nature-green-600" />
           </Carousel>
+          
+          {/* Индикаторы точек */}
+          <div className="flex justify-center mt-8 space-x-2">
+            {Array.from({ length: Math.ceil(reviews.length / 3) }).map((_, index) => (
+              <div key={index} className="w-2 h-2 bg-nature-green-300 rounded-full"></div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

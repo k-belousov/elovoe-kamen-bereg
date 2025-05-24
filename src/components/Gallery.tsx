@@ -1,5 +1,12 @@
 
 import React, { useState } from 'react';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -32,7 +39,7 @@ const Gallery = () => {
     },
     {
       id: 5,
-      src: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      src: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
       alt: 'Зона барбекю',
       category: 'Территория'
     },
@@ -94,27 +101,49 @@ const Gallery = () => {
           ))}
         </div>
 
-        {/* Сетка изображений */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredImages.map((image) => (
-            <div
-              key={image.id}
-              className="relative group cursor-pointer overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300"
-              onClick={() => setSelectedImage(image.src)}
-            >
-              <img
-                src={image.src}
-                alt={image.alt}
-                className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-nature-green-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="absolute bottom-4 left-4 text-white">
-                  <p className="font-medium">{image.alt}</p>
-                  <p className="text-sm opacity-90">{image.category}</p>
-                </div>
-              </div>
-            </div>
-          ))}
+        {/* Карусель изображений */}
+        <div className="relative">
+          <Carousel
+            opts={{
+              align: "center",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-4">
+              {filteredImages.map((image, index) => (
+                <CarouselItem key={image.id} className={`pl-4 ${index === Math.floor(filteredImages.length / 2) ? 'md:basis-1/2 lg:basis-2/5' : 'md:basis-1/3 lg:basis-1/5'}`}>
+                  <div
+                    className={`relative cursor-pointer overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 ${
+                      index === Math.floor(filteredImages.length / 2) ? 'h-96' : 'h-48'
+                    }`}
+                    onClick={() => setSelectedImage(image.src)}
+                  >
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-nature-green-900/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute bottom-4 left-4 text-white">
+                        <p className="font-medium">{image.alt}</p>
+                        <p className="text-sm opacity-90">{image.category}</p>
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 h-10 w-10 border-0 bg-transparent hover:bg-white/20 text-white" />
+            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 h-10 w-10 border-0 bg-transparent hover:bg-white/20 text-white" />
+          </Carousel>
+          
+          {/* Индикаторы точек */}
+          <div className="flex justify-center mt-8 space-x-2">
+            {Array.from({ length: Math.ceil(filteredImages.length / 3) }).map((_, index) => (
+              <div key={index} className="w-2 h-2 bg-nature-green-300 rounded-full"></div>
+            ))}
+          </div>
         </div>
 
         {/* Модальное окно для просмотра изображений */}
