@@ -14,15 +14,15 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Фоновое изображение (стилизованное под акварель) */}
+      {/* Фоновое изображение (акварельное с озером) */}
       <div className="absolute inset-0 z-0">
         <img 
-          src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
-          alt="Природа озера" 
-          className="w-full h-full object-cover filter sepia-[0.3] saturate-150 hue-rotate-[10deg]" 
+          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+          alt="Акварельный пейзаж с озером" 
+          className="w-full h-full object-cover filter sepia-[0.2] saturate-150 hue-rotate-[15deg] brightness-110" 
         />
-        <div className="absolute inset-0 bg-nature-green-900/40"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-nature-green-900/60"></div>
+        <div className="absolute inset-0 bg-nature-green-900/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-nature-green-900/50"></div>
       </div>
 
       {/* Контент */}
@@ -30,8 +30,19 @@ const Hero = () => {
         {/* Логотип */}
         <div className="flex justify-center mb-8">
           <div className="flex items-center space-x-4 bg-white/10 backdrop-blur-md rounded-2xl px-6 py-3">
-            <div className="w-12 h-12 bg-nature-brown-500 flex items-center justify-center rounded-2xl">
-              <div className="w-6 h-6 bg-nature-gold-400 rounded-full"></div>
+            <div className="flex space-x-1">
+              {/* Логотип - три домика в минималистичном стиле */}
+              <div className="flex items-end space-x-0.5">
+                <div className="w-4 h-6 bg-nature-brown-500 relative">
+                  <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[8px] border-r-[8px] border-b-[6px] border-transparent border-b-nature-brown-600"></div>
+                </div>
+                <div className="w-4 h-8 bg-nature-brown-600 relative">
+                  <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[8px] border-r-[8px] border-b-[6px] border-transparent border-b-nature-brown-700"></div>
+                </div>
+                <div className="w-4 h-5 bg-nature-brown-500 relative">
+                  <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[8px] border-r-[8px] border-b-[6px] border-transparent border-b-nature-brown-600"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

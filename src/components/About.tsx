@@ -28,19 +28,19 @@ const About = () => {
   return (
     <section id="about" className="section-padding bg-white">
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Изображение */}
-          <div className="relative">
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
+          {/* Изображение - увеличенное */}
+          <div className="relative h-[600px]">
             <img 
-              src="https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+              src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
               alt="База отдыха Каменный берег" 
-              className="w-full h-96 object-cover rounded-2xl shadow-2xl"
+              className="w-full h-full object-cover rounded-2xl shadow-2xl filter sepia-[0.3] saturate-150 hue-rotate-[10deg]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-nature-green-900/20 to-transparent rounded-2xl"></div>
           </div>
 
           {/* Контент */}
-          <div>
+          <div className="pt-8">
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-nature-green-800 mb-8">
               О базе отдыха
             </h2>

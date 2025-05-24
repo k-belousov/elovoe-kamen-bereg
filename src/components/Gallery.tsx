@@ -54,12 +54,6 @@ const Gallery = () => {
       src: 'https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
       alt: 'Вечерний пейзаж',
       category: 'Природа'
-    },
-    {
-      id: 8,
-      src: 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Номер комфорт',
-      category: 'Номера'
     }
   ];
 
@@ -69,6 +63,8 @@ const Gallery = () => {
   const filteredImages = activeCategory === 'Все' 
     ? galleryImages 
     : galleryImages.filter(img => img.category === activeCategory);
+
+  const [currentIndex, setCurrentIndex] = useState(Math.floor(filteredImages.length / 2));
 
   return (
     <section id="gallery" className="section-padding bg-nature-green-50">
@@ -101,47 +97,83 @@ const Gallery = () => {
           ))}
         </div>
 
-        {/* Карусель изображений */}
+        {/* Карусель изображений с центральным фокусом */}
         <div className="relative">
-          <Carousel
-            opts={{
-              align: "center",
-              loop: true,
-            }}
-            className="w-full"
+          <div className="flex items-center justify-center space-x-4 mb-8">
+            {/* Левое изображение */}
+            {currentIndex > 0 && (
+              <div className="w-48 h-32 overflow-hidden rounded-lg shadow-lg opacity-70 hover:opacity-100 transition-opacity cursor-pointer">
+                <img
+                  src={filteredImages[currentIndex - 1]?.src}
+                  alt={filteredImages[currentIndex - 1]?.alt}
+                  className="w-full h-full object-cover"
+                  onClick={() => setCurrentIndex(currentIndex - 1)}
+                />
+              </div>
+            )}
+
+            {/* Центральное изображение */}
+            <div 
+              className="w-96 h-64 overflow-hidden rounded-xl shadow-2xl cursor-pointer transform scale-105"
+              onClick={() => setSelectedImage(filteredImages[currentIndex]?.src)}
+            >
+              <img
+                src={filteredImages[currentIndex]?.src}
+                alt={filteredImages[currentIndex]?.alt}
+                className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-nature-green-900/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute bottom-4 left-4 text-white">
+                  <p className="font-medium">{filteredImages[currentIndex]?.alt}</p>
+                  <p className="text-sm opacity-90">{filteredImages[currentIndex]?.category}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Правое изображение */}
+            {currentIndex < filteredImages.length - 1 && (
+              <div className="w-48 h-32 overflow-hidden rounded-lg shadow-lg opacity-70 hover:opacity-100 transition-opacity cursor-pointer">
+                <img
+                  src={filteredImages[currentIndex + 1]?.src}
+                  alt={filteredImages[currentIndex + 1]?.alt}
+                  className="w-full h-full object-cover"
+                  onClick={() => setCurrentIndex(currentIndex + 1)}
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Навигационные стрелки */}
+          <button
+            onClick={() => setCurrentIndex(Math.max(0, currentIndex - 1))}
+            disabled={currentIndex === 0}
+            className="absolute left-4 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-transparent border-0 text-white/70 hover:text-nature-green-500 transition-colors duration-200 disabled:opacity-30"
           >
-            <CarouselContent className="-ml-4">
-              {filteredImages.map((image, index) => (
-                <CarouselItem key={image.id} className={`pl-4 ${index === Math.floor(filteredImages.length / 2) ? 'md:basis-1/2 lg:basis-2/5' : 'md:basis-1/3 lg:basis-1/5'}`}>
-                  <div
-                    className={`relative cursor-pointer overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 ${
-                      index === Math.floor(filteredImages.length / 2) ? 'h-96' : 'h-48'
-                    }`}
-                    onClick={() => setSelectedImage(image.src)}
-                  >
-                    <img
-                      src={image.src}
-                      alt={image.alt}
-                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-nature-green-900/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300">
-                      <div className="absolute bottom-4 left-4 text-white">
-                        <p className="font-medium">{image.alt}</p>
-                        <p className="text-sm opacity-90">{image.category}</p>
-                      </div>
-                    </div>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 h-10 w-10 border-0 bg-transparent hover:bg-white/20 text-white" />
-            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 h-10 w-10 border-0 bg-transparent hover:bg-white/20 text-white" />
-          </Carousel>
+            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
           
+          <button
+            onClick={() => setCurrentIndex(Math.min(filteredImages.length - 1, currentIndex + 1))}
+            disabled={currentIndex === filteredImages.length - 1}
+            className="absolute right-4 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-transparent border-0 text-white/70 hover:text-nature-green-500 transition-colors duration-200 disabled:opacity-30"
+          >
+            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+
           {/* Индикаторы точек */}
           <div className="flex justify-center mt-8 space-x-2">
-            {Array.from({ length: Math.ceil(filteredImages.length / 3) }).map((_, index) => (
-              <div key={index} className="w-2 h-2 bg-nature-green-300 rounded-full"></div>
+            {filteredImages.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`w-2 h-2 rounded-full transition-colors duration-200 ${
+                  index === currentIndex ? 'bg-nature-green-600' : 'bg-nature-green-300'
+                }`}
+              />
             ))}
           </div>
         </div>
