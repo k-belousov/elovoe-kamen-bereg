@@ -57,7 +57,7 @@ const Rooms = () => {
   };
 
   return (
-    <section id="rooms" className="section-padding bg-white">
+    <section id="rooms" className="section-padding bg-white pb-24">
       <div className="max-w-7xl mx-auto">
         {/* Заголовок секции */}
         <div className="text-center mb-16">
@@ -127,8 +127,8 @@ const Rooms = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 h-10 w-10 border-0 bg-white/80 hover:bg-white text-nature-green-600" />
-            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 h-10 w-10 border-0 bg-white/80 hover:bg-white text-nature-green-600" />
+            <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 h-full w-16 bg-transparent border-0 text-white/50 hover:text-nature-green-600 hover:bg-transparent rounded-none" />
+            <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 h-full w-16 bg-transparent border-0 text-white/50 hover:text-nature-green-600 hover:bg-transparent rounded-none" />
           </Carousel>
           
           {/* Индикаторы точек */}

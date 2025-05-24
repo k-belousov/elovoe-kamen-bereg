@@ -41,8 +41,13 @@ const Header = () => {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Логотип */}
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 lg:w-10 lg:h-10 bg-nature-green-600 rounded-lg flex items-center justify-center">
-              <div className="w-4 h-4 lg:w-5 lg:h-5 bg-nature-brown-400 rounded-full"></div>
+            <div className="flex items-end justify-center">
+              <div className="relative">
+                {/* Большая крыша */}
+                <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-b-[8px] border-transparent border-b-nature-green-500"></div>
+                {/* Дом */}
+                <div className="w-6 h-4 bg-nature-green-600 mx-auto"></div>
+              </div>
             </div>
             <div className="text-lg lg:text-xl font-semibold text-nature-green-800">
               Каменный берег

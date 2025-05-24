@@ -1,12 +1,5 @@
 
 import React, { useState } from 'react';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -66,8 +59,18 @@ const Gallery = () => {
 
   const [currentIndex, setCurrentIndex] = useState(Math.floor(filteredImages.length / 2));
 
+  // Функция для перехода к предыдущему изображению с бесконечной прокруткой
+  const goToPrevious = () => {
+    setCurrentIndex(currentIndex === 0 ? filteredImages.length - 1 : currentIndex - 1);
+  };
+
+  // Функция для перехода к следующему изображению с бесконечной прокруткой
+  const goToNext = () => {
+    setCurrentIndex(currentIndex === filteredImages.length - 1 ? 0 : currentIndex + 1);
+  };
+
   return (
-    <section id="gallery" className="section-padding bg-nature-green-50">
+    <section id="gallery" className="section-padding bg-nature-green-50 pb-24">
       <div className="max-w-7xl mx-auto">
         {/* Заголовок секции */}
         <div className="text-center mb-16">
@@ -101,20 +104,20 @@ const Gallery = () => {
         <div className="relative">
           <div className="flex items-center justify-center space-x-4 mb-8">
             {/* Левое изображение */}
-            {currentIndex > 0 && (
+            {filteredImages.length > 1 && (
               <div className="w-48 h-32 overflow-hidden rounded-lg shadow-lg opacity-70 hover:opacity-100 transition-opacity cursor-pointer">
                 <img
-                  src={filteredImages[currentIndex - 1]?.src}
-                  alt={filteredImages[currentIndex - 1]?.alt}
+                  src={filteredImages[currentIndex === 0 ? filteredImages.length - 1 : currentIndex - 1]?.src}
+                  alt={filteredImages[currentIndex === 0 ? filteredImages.length - 1 : currentIndex - 1]?.alt}
                   className="w-full h-full object-cover"
-                  onClick={() => setCurrentIndex(currentIndex - 1)}
+                  onClick={goToPrevious}
                 />
               </div>
             )}
 
             {/* Центральное изображение */}
             <div 
-              className="w-96 h-64 overflow-hidden rounded-xl shadow-2xl cursor-pointer transform scale-105"
+              className="w-96 h-64 overflow-hidden rounded-xl shadow-2xl cursor-pointer transform scale-105 relative"
               onClick={() => setSelectedImage(filteredImages[currentIndex]?.src)}
             >
               <img
@@ -131,13 +134,13 @@ const Gallery = () => {
             </div>
 
             {/* Правое изображение */}
-            {currentIndex < filteredImages.length - 1 && (
+            {filteredImages.length > 1 && (
               <div className="w-48 h-32 overflow-hidden rounded-lg shadow-lg opacity-70 hover:opacity-100 transition-opacity cursor-pointer">
                 <img
-                  src={filteredImages[currentIndex + 1]?.src}
-                  alt={filteredImages[currentIndex + 1]?.alt}
+                  src={filteredImages[currentIndex === filteredImages.length - 1 ? 0 : currentIndex + 1]?.src}
+                  alt={filteredImages[currentIndex === filteredImages.length - 1 ? 0 : currentIndex + 1]?.alt}
                   className="w-full h-full object-cover"
-                  onClick={() => setCurrentIndex(currentIndex + 1)}
+                  onClick={goToNext}
                 />
               </div>
             )}
@@ -145,21 +148,19 @@ const Gallery = () => {
 
           {/* Навигационные стрелки */}
           <button
-            onClick={() => setCurrentIndex(Math.max(0, currentIndex - 1))}
-            disabled={currentIndex === 0}
-            className="absolute left-4 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-transparent border-0 text-white/70 hover:text-nature-green-500 transition-colors duration-200 disabled:opacity-30"
+            onClick={goToPrevious}
+            className="absolute left-0 top-1/2 -translate-y-1/2 h-full w-16 flex items-center justify-start pl-4 text-white/50 hover:text-nature-green-500 transition-colors duration-200 z-10"
           >
-            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
           
           <button
-            onClick={() => setCurrentIndex(Math.min(filteredImages.length - 1, currentIndex + 1))}
-            disabled={currentIndex === filteredImages.length - 1}
-            className="absolute right-4 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-transparent border-0 text-white/70 hover:text-nature-green-500 transition-colors duration-200 disabled:opacity-30"
+            onClick={goToNext}
+            className="absolute right-0 top-1/2 -translate-y-1/2 h-full w-16 flex items-center justify-end pr-4 text-white/50 hover:text-nature-green-500 transition-colors duration-200 z-10"
           >
-            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>

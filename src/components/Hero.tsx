@@ -14,15 +14,15 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Фоновое изображение (акварельное с озером) */}
+      {/* Фоновое изображение (озеро Еловое, Чебаркуль) */}
       <div className="absolute inset-0 z-0">
         <img 
           src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
-          alt="Акварельный пейзаж с озером" 
-          className="w-full h-full object-cover filter sepia-[0.2] saturate-150 hue-rotate-[15deg] brightness-110" 
+          alt="Озеро Еловое, Чебаркуль" 
+          className="w-full h-full object-cover filter sepia-[0.3] saturate-120 hue-rotate-[10deg] brightness-105" 
         />
-        <div className="absolute inset-0 bg-nature-green-900/30"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-nature-green-900/50"></div>
+        <div className="absolute inset-0 bg-nature-green-900/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-nature-green-900/40"></div>
       </div>
 
       {/* Контент */}
@@ -31,16 +31,13 @@ const Hero = () => {
         <div className="flex justify-center mb-8">
           <div className="flex items-center space-x-4 bg-white/10 backdrop-blur-md rounded-2xl px-6 py-3">
             <div className="flex space-x-1">
-              {/* Логотип - три домика в минималистичном стиле */}
-              <div className="flex items-end space-x-0.5">
-                <div className="w-4 h-6 bg-nature-brown-500 relative">
-                  <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[8px] border-r-[8px] border-b-[6px] border-transparent border-b-nature-brown-600"></div>
-                </div>
-                <div className="w-4 h-8 bg-nature-brown-600 relative">
-                  <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[8px] border-r-[8px] border-b-[6px] border-transparent border-b-nature-brown-700"></div>
-                </div>
-                <div className="w-4 h-5 bg-nature-brown-500 relative">
-                  <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[8px] border-r-[8px] border-b-[6px] border-transparent border-b-nature-brown-600"></div>
+              {/* Новый логотип - большая крыша и дом в минимализме */}
+              <div className="flex items-end justify-center">
+                <div className="relative">
+                  {/* Большая крыша */}
+                  <div className="w-0 h-0 border-l-[20px] border-r-[20px] border-b-[14px] border-transparent border-b-nature-green-500"></div>
+                  {/* Дом */}
+                  <div className="w-8 h-6 bg-nature-green-600 mx-auto"></div>
                 </div>
               </div>
             </div>
@@ -65,10 +62,11 @@ const Hero = () => {
           </Button>
         </div>
 
-        {/* Прокрутка вниз */}
+        {/* Прокрутка вниз с уменьшенной частотой анимации */}
         <button 
           onClick={() => scrollToSection('about')} 
-          className="animate-bounce text-white/80 hover:text-white transition-colors duration-200"
+          className="text-white/80 hover:text-white transition-colors duration-200"
+          style={{ animation: 'bounce 3s infinite' }}
         >
           <div className="flex flex-col items-center space-y-2">
             <span className="text-sm uppercase tracking-wider">Узнать больше</span>

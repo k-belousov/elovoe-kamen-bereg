@@ -29,8 +29,8 @@ const About = () => {
     <section id="about" className="section-padding bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
-          {/* Изображение - увеличенное */}
-          <div className="relative h-[600px]">
+          {/* Изображение - увеличенное и выровненное */}
+          <div className="relative h-[700px]">
             <img 
               src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
               alt="База отдыха Каменный берег" 
