@@ -1,42 +1,7 @@
 
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import React from 'react';
 
 const Contacts = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    dates: '',
-    guests: '',
-    message: ''
-  });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Здесь будет логика отправки формы
-    console.log('Форма отправлена:', formData);
-    alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.');
-    
-    // Очищаем форму
-    setFormData({
-      name: '',
-      phone: '',
-      email: '',
-      dates: '',
-      guests: '',
-      message: ''
-    });
-  };
-
   return (
     <section id="contacts" className="section-padding bg-white">
       <div className="max-w-7xl mx-auto">
@@ -51,7 +16,7 @@ const Contacts = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {/* Контактная информация */}
           <div className="space-y-8">
             <div className="bg-nature-green-50 rounded-2xl p-8">
@@ -121,9 +86,44 @@ const Contacts = () => {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Информация о бронировании */}
+          <div className="space-y-8">
+            <div className="bg-nature-gold-50 rounded-2xl p-8">
+              <h3 className="text-2xl font-bold text-nature-green-800 mb-6">
+                Бронирование
+              </h3>
+              <div className="space-y-4 text-nature-green-700">
+                <p className="text-lg leading-relaxed">
+                  Для бронирования номеров звоните по телефону или отправляйте сообщение в Telegram.
+                </p>
+                <div className="bg-white rounded-xl p-6 border border-nature-green-200">
+                  <h4 className="font-semibold text-nature-green-800 mb-3">Что нужно сообщить:</h4>
+                  <ul className="space-y-2">
+                    <li className="flex items-center">
+                      <div className="w-2 h-2 bg-nature-gold-500 rounded-full mr-3"></div>
+                      Желаемые даты заезда и выезда
+                    </li>
+                    <li className="flex items-center">
+                      <div className="w-2 h-2 bg-nature-gold-500 rounded-full mr-3"></div>
+                      Количество гостей
+                    </li>
+                    <li className="flex items-center">
+                      <div className="w-2 h-2 bg-nature-gold-500 rounded-full mr-3"></div>
+                      Тип номера
+                    </li>
+                    <li className="flex items-center">
+                      <div className="w-2 h-2 bg-nature-gold-500 rounded-full mr-3"></div>
+                      Дополнительные услуги
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
 
             {/* Режим работы */}
-            <div className="bg-nature-gold-50 rounded-2xl p-6">
+            <div className="bg-nature-green-50 rounded-2xl p-6">
               <h3 className="text-xl font-bold text-nature-green-800 mb-4">
                 Режим работы
               </h3>
@@ -142,131 +142,6 @@ const Contacts = () => {
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Форма бронирования */}
-          <div className="bg-nature-green-50 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold text-nature-green-800 mb-6">
-              Форма бронирования
-            </h3>
-            
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Имя */}
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-nature-green-700 mb-2">
-                  Ваше имя *
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nature-green-500 focus:border-nature-green-500"
-                  placeholder="Введите ваше имя"
-                />
-              </div>
-
-              {/* Телефон */}
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-nature-green-700 mb-2">
-                  Телефон *
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nature-green-500 focus:border-nature-green-500"
-                  placeholder="+7 (999) 123-45-67"
-                />
-              </div>
-
-              {/* Email */}
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-nature-green-700 mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nature-green-500 focus:border-nature-green-500"
-                  placeholder="your@email.com"
-                />
-              </div>
-
-              {/* Даты */}
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="dates" className="block text-sm font-medium text-nature-green-700 mb-2">
-                    Даты заезда
-                  </label>
-                  <input
-                    type="text"
-                    id="dates"
-                    name="dates"
-                    value={formData.dates}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nature-green-500 focus:border-nature-green-500"
-                    placeholder="15.01 - 18.01"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="guests" className="block text-sm font-medium text-nature-green-700 mb-2">
-                    Количество гостей
-                  </label>
-                  <select
-                    id="guests"
-                    name="guests"
-                    value={formData.guests}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nature-green-500 focus:border-nature-green-500"
-                  >
-                    <option value="">Выберите</option>
-                    <option value="1">1 человек</option>
-                    <option value="2">2 человека</option>
-                    <option value="3">3 человека</option>
-                    <option value="4">4 человека</option>
-                    <option value="5+">5+ человек</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* Сообщение */}
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-nature-green-700 mb-2">
-                  Дополнительные пожелания
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  rows={4}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nature-green-500 focus:border-nature-green-500"
-                  placeholder="Укажите предпочтения по номеру, услугам или другие пожелания..."
-                ></textarea>
-              </div>
-
-              {/* Кнопка отправки */}
-              <Button
-                type="submit"
-                className="w-full bg-nature-green-600 hover:bg-nature-green-700 text-white font-medium py-3 text-lg"
-              >
-                Отправить заявку
-              </Button>
-
-              <p className="text-sm text-nature-green-600 text-center">
-                * Обязательные поля. Мы свяжемся с вами в течение часа для подтверждения бронирования.
-              </p>
-            </form>
           </div>
         </div>
       </div>

@@ -1,4 +1,13 @@
+
 import React from 'react';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
 const Services = () => {
   const services = [{
     id: 1,
@@ -42,8 +51,24 @@ const Services = () => {
     image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     price: 'от 1200 ₽',
     features: ['Гид-экскурсовод', 'Транспорт', 'Историческая программа', 'Фотосессия']
+  }, {
+    id: 7,
+    title: 'СПА-процедуры',
+    description: 'Расслабляющие процедуры на природе',
+    image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    price: 'от 1500 ₽',
+    features: ['Массаж', 'Маски', 'Ароматерапия', 'Релаксация']
+  }, {
+    id: 8,
+    title: 'Конные прогулки',
+    description: 'Верховая езда по живописным тропам',
+    image: 'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    price: 'от 1000 ₽/час',
+    features: ['Инструктор', 'Экипировка', 'Фотосессия', 'Маршрут']
   }];
-  return <section id="services" className="section-padding bg-white">
+
+  return (
+    <section id="services" className="section-padding bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Заголовок секции */}
         <div className="text-center mb-16">
@@ -56,40 +81,61 @@ const Services = () => {
           </p>
         </div>
 
-        {/* Сетка услуг */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map(service => <div key={service.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group">
-              {/* Изображение */}
-              <div className="relative h-48 overflow-hidden">
-                <img src={service.image} alt={service.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                <div className="absolute inset-0 bg-gradient-to-t from-nature-green-900/60 to-transparent"></div>
-                <div className="absolute top-4 right-4 bg-nature-gold-500 text-nature-green-800 px-3 py-1 rounded-full text-sm font-semibold">
-                  {service.price}
-                </div>
-              </div>
+        {/* Слайдер услуг */}
+        <div className="relative px-12">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-4">
+              {services.map(service => (
+                <CarouselItem key={service.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                  <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group h-full">
+                    {/* Изображение */}
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src={service.image} 
+                        alt={service.title} 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-nature-green-900/60 to-transparent"></div>
+                      <div className="absolute top-4 right-4 bg-nature-gold-500 text-nature-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+                        {service.price}
+                      </div>
+                    </div>
 
-              {/* Контент */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-nature-green-800 mb-3">{service.title}</h3>
-                <p className="text-nature-green-600 mb-4 leading-relaxed">{service.description}</p>
-                
-                {/* Особенности */}
-                <div className="space-y-2">
-                  <h4 className="text-sm font-semibold text-nature-green-700 uppercase tracking-wider">Включено:</h4>
-                  <ul className="grid grid-cols-2 gap-1 text-sm text-nature-green-600">
-                    {service.features.map((feature, index) => <li key={index} className="flex items-center">
-                        <div className="w-1.5 h-1.5 bg-nature-gold-500 rounded-full mr-2"></div>
-                        {feature}
-                      </li>)}
-                  </ul>
-                </div>
-              </div>
-            </div>)}
+                    {/* Контент */}
+                    <div className="p-6 flex flex-col h-[calc(100%-12rem)]">
+                      <h3 className="text-xl font-bold text-nature-green-800 mb-3">{service.title}</h3>
+                      <p className="text-nature-green-600 mb-4 leading-relaxed flex-grow">{service.description}</p>
+                      
+                      {/* Особенности */}
+                      <div className="space-y-2">
+                        <h4 className="text-sm font-semibold text-nature-green-700 uppercase tracking-wider">Включено:</h4>
+                        <ul className="grid grid-cols-2 gap-1 text-sm text-nature-green-600">
+                          {service.features.map((feature, index) => (
+                            <li key={index} className="flex items-center">
+                              <div className="w-1.5 h-1.5 bg-nature-gold-500 rounded-full mr-2"></div>
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2" />
+            <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2" />
+          </Carousel>
         </div>
-
-        {/* Дополнительная информация */}
-        
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default Services;

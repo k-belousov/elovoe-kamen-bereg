@@ -1,5 +1,14 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
 const Rooms = () => {
   const rooms = [{
     id: 1,
@@ -22,7 +31,22 @@ const Rooms = () => {
     capacity: '4-5 человек',
     features: ['Две спальни', 'Гостиная', 'Кухонная зона', 'Терраса', 'Барбекю'],
     image: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+  }, {
+    id: 4,
+    name: 'Люкс',
+    price: '6500 ₽/сутки',
+    capacity: '2 человека',
+    features: ['Панорамные окна', 'Джакузи', 'Мини-бар', 'Балкон с видом на озеро'],
+    image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+  }, {
+    id: 5,
+    name: 'Эконом',
+    price: '1800 ₽/сутки',
+    capacity: '2 человека',
+    features: ['Односпальные кровати', 'Общая ванная', 'Холодильник', 'Wi-Fi'],
+    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
   }];
+
   const scrollToContacts = () => {
     const element = document.getElementById('contacts');
     if (element) {
@@ -31,7 +55,9 @@ const Rooms = () => {
       });
     }
   };
-  return <section id="rooms" className="section-padding bg-white">
+
+  return (
+    <section id="rooms" className="section-padding bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Заголовок секции */}
         <div className="text-center mb-16">
@@ -44,46 +70,70 @@ const Rooms = () => {
           </p>
         </div>
 
-        {/* Карточки номеров */}
-        <div className="grid lg:grid-cols-3 gap-8 lg:gap-10">
-          {rooms.map(room => <div key={room.id} className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 group">
-              {/* Изображение */}
-              <div className="relative h-64 overflow-hidden">
-                <img src={room.image} alt={room.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                <div className="absolute inset-0 bg-gradient-to-t from-nature-green-900/60 to-transparent"></div>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <div className="text-sm opacity-90">{room.capacity}</div>
-                </div>
-              </div>
+        {/* Слайдер номеров */}
+        <div className="relative px-12">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-4">
+              {rooms.map(room => (
+                <CarouselItem key={room.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                  <div className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 group h-full">
+                    {/* Изображение */}
+                    <div className="relative h-64 overflow-hidden">
+                      <img 
+                        src={room.image} 
+                        alt={room.name} 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-nature-green-900/60 to-transparent"></div>
+                      <div className="absolute bottom-4 left-4 text-white">
+                        <div className="text-sm opacity-90">{room.capacity}</div>
+                      </div>
+                    </div>
 
-              {/* Контент */}
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="text-2xl font-bold text-nature-green-800">{room.name}</h3>
-                  <div className="text-right">
-                    <div className="text-lg font-semibold text-nature-gold-600">{room.price}</div>
+                    {/* Контент */}
+                    <div className="p-6 flex flex-col h-[calc(100%-16rem)]">
+                      <div className="flex justify-between items-start mb-4">
+                        <h3 className="text-2xl font-bold text-nature-green-800">{room.name}</h3>
+                        <div className="text-right">
+                          <div className="text-lg font-semibold text-nature-gold-600">{room.price}</div>
+                        </div>
+                      </div>
+
+                      {/* Удобства */}
+                      <ul className="space-y-2 mb-6 flex-grow">
+                        {room.features.map((feature, index) => (
+                          <li key={index} className="flex items-center text-nature-green-600">
+                            <div className="w-2 h-2 bg-nature-gold-500 rounded-full mr-3"></div>
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+
+                      {/* Кнопка бронирования */}
+                      <Button 
+                        onClick={scrollToContacts} 
+                        className="w-full bg-nature-green-600 hover:bg-nature-green-700 text-white font-medium py-3 rounded-xl transition-colors duration-200"
+                      >
+                        Забронировать
+                      </Button>
+                    </div>
                   </div>
-                </div>
-
-                {/* Удобства */}
-                <ul className="space-y-2 mb-6">
-                  {room.features.map((feature, index) => <li key={index} className="flex items-center text-nature-green-600">
-                      <div className="w-2 h-2 bg-nature-gold-500 rounded-full mr-3"></div>
-                      {feature}
-                    </li>)}
-                </ul>
-
-                {/* Кнопка бронирования */}
-                <Button onClick={scrollToContacts} className="w-full bg-nature-green-600 hover:bg-nature-green-700 text-white font-medium py-3 rounded-xl transition-colors duration-200">
-                  Забронировать
-                </Button>
-              </div>
-            </div>)}
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2" />
+            <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2" />
+          </Carousel>
         </div>
-
-        {/* Дополнительная информация */}
-        
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default Rooms;
