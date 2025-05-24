@@ -50,7 +50,7 @@ const FAQ = () => {
         {/* Заголовок секции */}
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-nature-green-800 mb-6">Часто задаваемые вопросы</h2>
-          <div className="w-24 h-1 bg-nature-gold-500 mx-auto mb-8"></div>
+          
           
         </div>
 
