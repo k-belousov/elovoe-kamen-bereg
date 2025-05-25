@@ -1,7 +1,9 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 
 const Reviews = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
   const reviews = [{
     id: 1,
     name: 'Анна Петрова',
@@ -42,14 +44,6 @@ const Reviews = () => {
     date: 'Ноябрь 2024',
     text: 'Были с детьми на осенних каникулах. Дети постоянно были заняты - то рыбалка, то прогулки, то игры на природе. Мы смогли наконец-то отдохнуть!',
     avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80'
-  }, {
-    id: 6,
-    name: 'Игорь Белов',
-    location: 'Брянск',
-    rating: 5,
-    date: 'Декабрь 2024',
-    text: 'Зимний отдых тоже прекрасен! Баня после прогулок по заснеженному лесу - это что-то невероятное. Очень уютная атмосфера, чувствуешь себя как дома.',
-    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80'
   }];
 
   const renderStars = (rating: number) => {
@@ -58,6 +52,23 @@ const Reviews = () => {
         ★
       </span>
     ));
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % reviews.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + reviews.length) % reviews.length);
+  };
+
+  const getVisibleReviews = () => {
+    const result = [];
+    for (let i = 0; i < 3; i++) {
+      const index = (currentSlide + i) % reviews.length;
+      result.push(reviews[index]);
+    }
+    return result;
   };
 
   return (
@@ -76,45 +87,83 @@ const Reviews = () => {
 
         {/* Слайдер отзывов */}
         <div className="relative overflow-hidden">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
-            {reviews.slice(0, 3).map(review => (
-              <div key={review.id} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
+          {/* Desktop версия */}
+          <div className="hidden md:block">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+              {getVisibleReviews().map(review => (
+                <div key={review.id} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
+                  {/* Заголовок отзыва */}
+                  <div className="flex items-center space-x-4 mb-4">
+                    <img src={review.avatar} alt={review.name} className="w-12 h-12 rounded-full object-cover" />
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-nature-green-800">{review.name}</h4>
+                      <p className="text-sm text-nature-green-600">{review.location}</p>
+                    </div>
+                    <div className="text-right">
+                      <div className="flex">{renderStars(review.rating)}</div>
+                      <p className="text-xs text-nature-green-500 mt-1">{review.date}</p>
+                    </div>
+                  </div>
+
+                  {/* Текст отзыва */}
+                  <p className="text-nature-green-700 leading-relaxed">{review.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile версия - показываем по одному отзыву */}
+          <div className="block md:hidden">
+            <div className="max-w-sm mx-auto">
+              <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
                 {/* Заголовок отзыва */}
                 <div className="flex items-center space-x-4 mb-4">
-                  <img src={review.avatar} alt={review.name} className="w-12 h-12 rounded-full object-cover" />
+                  <img src={reviews[currentSlide].avatar} alt={reviews[currentSlide].name} className="w-12 h-12 rounded-full object-cover" />
                   <div className="flex-1">
-                    <h4 className="font-semibold text-nature-green-800">{review.name}</h4>
-                    <p className="text-sm text-nature-green-600">{review.location}</p>
+                    <h4 className="font-semibold text-nature-green-800">{reviews[currentSlide].name}</h4>
+                    <p className="text-sm text-nature-green-600">{reviews[currentSlide].location}</p>
                   </div>
                   <div className="text-right">
-                    <div className="flex">{renderStars(review.rating)}</div>
-                    <p className="text-xs text-nature-green-500 mt-1">{review.date}</p>
+                    <div className="flex">{renderStars(reviews[currentSlide].rating)}</div>
+                    <p className="text-xs text-nature-green-500 mt-1">{reviews[currentSlide].date}</p>
                   </div>
                 </div>
 
                 {/* Текст отзыва */}
-                <p className="text-nature-green-700 leading-relaxed">{review.text}</p>
+                <p className="text-nature-green-700 leading-relaxed">{reviews[currentSlide].text}</p>
               </div>
-            ))}
+            </div>
           </div>
           
           {/* Навигационные стрелки */}
-          <button className="absolute left-0 top-1/2 -translate-y-1/2 h-full w-16 flex items-center justify-start pl-4 text-white/50 hover:text-nature-green-500 transition-colors duration-200 z-10 shadow-lg">
-            <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <button 
+            onClick={prevSlide}
+            className="absolute left-0 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center text-nature-green-600 hover:text-nature-green-800 transition-colors duration-200 z-10 bg-white/80 rounded-full shadow-lg ml-4"
+          >
+            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
           
-          <button className="absolute right-0 top-1/2 -translate-y-1/2 h-full w-16 flex items-center justify-end pr-4 text-white/50 hover:text-nature-green-500 transition-colors duration-200 z-10 shadow-lg">
-            <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <button 
+            onClick={nextSlide}
+            className="absolute right-0 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center text-nature-green-600 hover:text-nature-green-800 transition-colors duration-200 z-10 bg-white/80 rounded-full shadow-lg mr-4"
+          >
+            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
           
           {/* Индикаторы точек */}
           <div className="flex justify-center mt-8 space-x-2">
-            {Array.from({ length: Math.ceil(reviews.length / 3) }).map((_, index) => (
-              <div key={index} className="w-2 h-2 bg-nature-green-300 rounded-full"></div>
+            {reviews.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`w-3 h-3 rounded-full transition-colors ${
+                  index === currentSlide ? 'bg-nature-green-600' : 'bg-nature-green-300'
+                }`}
+              />
             ))}
           </div>
         </div>

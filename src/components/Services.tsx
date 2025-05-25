@@ -47,7 +47,14 @@ const Services = () => {
     setCurrentSlide((prev) => (prev - 1 + services.length) % services.length);
   };
 
-  const servicesToShow = 3; // По умолчанию 3 для desktop
+  const getVisibleServices = () => {
+    const result = [];
+    for (let i = 0; i < 3; i++) {
+      const index = (currentSlide + i) % services.length;
+      result.push(services[index]);
+    }
+    return result;
+  };
 
   return (
     <section id="services" className="section-padding bg-white pb-24">
@@ -67,43 +74,38 @@ const Services = () => {
         <div className="relative overflow-hidden">
           {/* Desktop версия */}
           <div className="hidden md:block">
-            <div 
-              className="flex transition-transform duration-300 ease-in-out"
-              style={{ transform: `translateX(-${currentSlide * (100 / servicesToShow)}%)` }}
-            >
-              {services.map(service => (
-                <div key={service.id} className="w-1/3 flex-shrink-0 px-3">
-                  <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group h-full">
-                    {/* Изображение */}
-                    <div className="relative h-48 overflow-hidden">
-                      <img 
-                        src={service.image} 
-                        alt={service.title} 
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-nature-green-900/60 to-transparent"></div>
-                      <div className="absolute top-4 right-4 bg-nature-gold-500 text-nature-green-800 px-3 py-1 rounded-full text-sm font-semibold">
-                        {service.price}
-                      </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+              {getVisibleServices().map(service => (
+                <div key={service.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group h-full">
+                  {/* Изображение */}
+                  <div className="relative h-48 overflow-hidden">
+                    <img 
+                      src={service.image} 
+                      alt={service.title} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-nature-green-900/60 to-transparent"></div>
+                    <div className="absolute top-4 right-4 bg-nature-gold-500 text-nature-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+                      {service.price}
                     </div>
+                  </div>
 
-                    {/* Контент */}
-                    <div className="p-6 flex flex-col h-[calc(100%-12rem)]">
-                      <h3 className="text-xl font-bold text-nature-green-800 mb-3">{service.title}</h3>
-                      <p className="text-nature-green-600 mb-4 leading-relaxed flex-grow">{service.description}</p>
-                      
-                      {/* Особенности */}
-                      <div className="space-y-2">
-                        <h4 className="text-sm font-semibold text-nature-green-700 uppercase tracking-wider">Включено:</h4>
-                        <ul className="grid grid-cols-2 gap-1 text-sm text-nature-green-600">
-                          {service.features.map((feature, index) => (
-                            <li key={index} className="flex items-center">
-                              <div className="w-1.5 h-1.5 bg-nature-gold-500 rounded-full mr-2"></div>
-                              {feature}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                  {/* Контент */}
+                  <div className="p-6 flex flex-col h-[calc(100%-12rem)]">
+                    <h3 className="text-xl font-bold text-nature-green-800 mb-3">{service.title}</h3>
+                    <p className="text-nature-green-600 mb-4 leading-relaxed flex-grow">{service.description}</p>
+                    
+                    {/* Особенности */}
+                    <div className="space-y-2">
+                      <h4 className="text-sm font-semibold text-nature-green-700 uppercase tracking-wider">Включено:</h4>
+                      <ul className="grid grid-cols-2 gap-1 text-sm text-nature-green-600">
+                        {service.features.map((feature, index) => (
+                          <li key={index} className="flex items-center">
+                            <div className="w-1.5 h-1.5 bg-nature-gold-500 rounded-full mr-2"></div>
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
                 </div>
@@ -150,22 +152,20 @@ const Services = () => {
             </div>
           </div>
           
-          {/* Кнопки навигации с тенью */}
+          {/* Кнопки навигации */}
           <button
             onClick={prevSlide}
-            className="absolute left-2 lg:left-0 top-1/2 -translate-y-1/2 h-full w-12 lg:w-16 flex items-center justify-center text-gray-400 hover:text-nature-green-600 transition-colors duration-200 z-10"
-            style={{ filter: 'drop-shadow(2px 2px 8px rgba(0,0,0,0.3))' }}
+            className="absolute left-0 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center text-nature-green-600 hover:text-nature-green-800 transition-colors duration-200 z-10 bg-white/80 rounded-full shadow-lg ml-4"
           >
-            <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
           <button
             onClick={nextSlide}
-            className="absolute right-2 lg:right-0 top-1/2 -translate-y-1/2 h-full w-12 lg:w-16 flex items-center justify-center text-gray-400 hover:text-nature-green-600 transition-colors duration-200 z-10"
-            style={{ filter: 'drop-shadow(2px 2px 8px rgba(0,0,0,0.3))' }}
+            className="absolute right-0 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center text-nature-green-600 hover:text-nature-green-800 transition-colors duration-200 z-10 bg-white/80 rounded-full shadow-lg mr-4"
           >
-            <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>

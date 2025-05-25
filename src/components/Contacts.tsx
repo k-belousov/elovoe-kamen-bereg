@@ -3,6 +3,26 @@ import React from 'react';
 import BookingForm from './BookingForm';
 import { Button } from '@/components/ui/button';
 
+const PhoneIcon = () => (
+  <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+  </svg>
+);
+
+const EmailIcon = () => (
+  <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+  </svg>
+);
+
+const LocationIcon = () => (
+  <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+    <circle cx="12" cy="10" r="3"/>
+  </svg>
+);
+
 const VkIcon = () => (
   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
     <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1.033-1.49-.726-1.49.264v1.727c0 .428-.132.528-.925.528-2.115 0-4.464-1.287-6.117-3.68C5.57 11.693 4.7 9.314 4.7 8.2c0-.297.099-.528.528-.528h1.744c.396 0 .544.198.693.66.726 2.31 1.925 4.329 2.409 4.329.198 0 .297-.099.297-.66V9.907c-.066-1.122-.66-1.221-.66-1.617 0-.231.198-.462.528-.462h2.772c.33 0 .462.198.462.627v3.383c0 .33.132.462.231.462.198 0 .396-.132.792-.528 1.155-1.155 1.98-2.937 1.98-2.937.099-.231.297-.462.693-.462h1.744s.528.066.428.726c-.198 1.188-2.277 3.383-2.277 3.383-.165.264-.132.396 0 .627.231.396 1.023 1.023 1.551 1.617.726.792 1.287 1.452.924 1.925z"/>
@@ -49,7 +69,7 @@ const Contacts = () => {
                   {/* Телефон */}
                   <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 bg-nature-green-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <span className="text-white text-xl">📞</span>
+                      <PhoneIcon />
                     </div>
                     <div>
                       <h4 className="font-semibold text-nature-green-800 mb-1">Телефон</h4>
@@ -62,7 +82,7 @@ const Contacts = () => {
                   {/* Email */}
                   <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 bg-nature-green-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <span className="text-white text-xl">✉️</span>
+                      <EmailIcon />
                     </div>
                     <div>
                       <h4 className="font-semibold text-nature-green-800 mb-1">Email</h4>
@@ -74,7 +94,7 @@ const Contacts = () => {
                   {/* Адрес */}
                   <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 bg-nature-green-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <span className="text-white text-xl">📍</span>
+                      <LocationIcon />
                     </div>
                     <div>
                       <h4 className="font-semibold text-nature-green-800 mb-1">Адрес</h4>
