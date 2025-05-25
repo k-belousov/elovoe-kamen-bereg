@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Users, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Users } from 'lucide-react';
 import RoomDetailModal from './RoomDetailModal';
 
 const Rooms = () => {
@@ -58,11 +58,11 @@ const Rooms = () => {
   ];
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % Math.ceil(rooms.length / 3));
+    setCurrentSlide((prev) => (prev + 1) % rooms.length);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + Math.ceil(rooms.length / 3)) % Math.ceil(rooms.length / 3));
+    setCurrentSlide((prev) => (prev - 1 + rooms.length) % rooms.length);
   };
 
   const openRoomDetails = (room: any) => {
@@ -84,9 +84,16 @@ const Rooms = () => {
     scrollToContacts();
   };
 
+  // Определяем количество карточек для показа в зависимости от размера экрана
+  const getRoomsToShow = () => {
+    return window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+  };
+
+  const roomsToShow = 3; // По умолчанию 3 для desktop
+
   return (
     <section id="rooms" className="section-padding bg-white pb-24">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Заголовок секции */}
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-nature-green-800 mb-6">
@@ -100,87 +107,144 @@ const Rooms = () => {
 
         {/* Слайдер номеров */}
         <div className="relative overflow-hidden">
-          <div 
-            className="flex transition-transform duration-300 ease-in-out"
-            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-          >
-            {Array.from({ length: Math.ceil(rooms.length / 3) }).map((_, slideIndex) => (
-              <div key={slideIndex} className="w-full flex-shrink-0">
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
-                  {rooms.slice(slideIndex * 3, slideIndex * 3 + 3).map(room => (
-                    <div key={room.id} className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 group h-full">
-                      {/* Изображение */}
-                      <div className="relative h-64 overflow-hidden">
-                        <img 
-                          src={room.image} 
-                          alt={room.name} 
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-nature-green-900/60 to-transparent"></div>
-                        {/* Количество человек на картинке */}
-                        <div className="absolute top-4 left-4 bg-nature-green-600 text-white px-3 py-1 rounded-full text-sm font-semibold flex items-center space-x-1">
-                          <Users size={14} />
-                          <span>{room.capacity}</span>
-                        </div>
-                        {/* Цена на картинке */}
-                        <div className="absolute bottom-4 right-4 bg-nature-gold-500 text-nature-green-800 px-3 py-2 rounded-xl font-bold">
-                          {room.price}
-                        </div>
+          {/* Desktop версия */}
+          <div className="hidden md:block">
+            <div 
+              className="flex transition-transform duration-300 ease-in-out"
+              style={{ transform: `translateX(-${currentSlide * (100 / roomsToShow)}%)` }}
+            >
+              {rooms.map(room => (
+                <div key={room.id} className="w-1/3 flex-shrink-0 px-3">
+                  <div className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 group h-full">
+                    {/* Изображение */}
+                    <div className="relative h-64 overflow-hidden">
+                      <img 
+                        src={room.image} 
+                        alt={room.name} 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-nature-green-900/60 to-transparent"></div>
+                      {/* Количество человек на картинке */}
+                      <div className="absolute top-4 left-4 bg-nature-green-600 text-white px-3 py-1 rounded-full text-sm font-semibold flex items-center space-x-1">
+                        <Users size={14} />
+                        <span>{room.capacity}</span>
                       </div>
-
-                      {/* Контент */}
-                      <div className="p-6 flex flex-col h-[calc(100%-16rem)]">
-                        <h3 className="text-2xl font-bold text-nature-green-800 mb-4">{room.name}</h3>
-
-                        {/* Удобства */}
-                        <ul className="space-y-2 mb-6 flex-grow">
-                          {room.features.slice(0, 3).map((feature, index) => (
-                            <li key={index} className="flex items-center text-nature-green-600">
-                              <div className="w-2 h-2 bg-nature-gold-500 rounded-full mr-3"></div>
-                              {feature}
-                            </li>
-                          ))}
-                          {room.features.length > 3 && (
-                            <li className="text-nature-green-500 text-sm">
-                              и еще {room.features.length - 3} удобств...
-                            </li>
-                          )}
-                        </ul>
-
-                        {/* Кнопка подробнее */}
-                        <Button 
-                          onClick={() => openRoomDetails(room)}
-                          className="w-full bg-nature-green-600 hover:bg-nature-green-700 text-white font-medium py-3 rounded-xl transition-colors duration-200"
-                        >
-                          Подробнее
-                        </Button>
+                      {/* Цена на картинке */}
+                      <div className="absolute bottom-4 right-4 bg-nature-gold-500 text-nature-green-800 px-3 py-2 rounded-xl font-bold">
+                        {room.price}
                       </div>
                     </div>
-                  ))}
+
+                    {/* Контент */}
+                    <div className="p-6 flex flex-col h-[calc(100%-16rem)]">
+                      <h3 className="text-2xl font-bold text-nature-green-800 mb-4">{room.name}</h3>
+
+                      {/* Удобства */}
+                      <ul className="space-y-2 mb-6 flex-grow">
+                        {room.features.slice(0, 3).map((feature, index) => (
+                          <li key={index} className="flex items-center text-nature-green-600">
+                            <div className="w-2 h-2 bg-nature-gold-500 rounded-full mr-3"></div>
+                            {feature}
+                          </li>
+                        ))}
+                        {room.features.length > 3 && (
+                          <li className="text-nature-green-500 text-sm">
+                            и еще {room.features.length - 3} удобств...
+                          </li>
+                        )}
+                      </ul>
+
+                      {/* Кнопка подробнее */}
+                      <Button 
+                        onClick={() => openRoomDetails(room)}
+                        className="w-full bg-nature-green-600 hover:bg-nature-green-700 text-white font-medium py-3 rounded-xl transition-colors duration-200"
+                      >
+                        Подробнее
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile версия - показываем по одному номеру */}
+          <div className="block md:hidden">
+            <div className="max-w-sm mx-auto">
+              <div className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 group h-full">
+                {/* Изображение */}
+                <div className="relative h-64 overflow-hidden">
+                  <img 
+                    src={rooms[currentSlide].image} 
+                    alt={rooms[currentSlide].name} 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-nature-green-900/60 to-transparent"></div>
+                  {/* Количество человек на картинке */}
+                  <div className="absolute top-4 left-4 bg-nature-green-600 text-white px-3 py-1 rounded-full text-sm font-semibold flex items-center space-x-1">
+                    <Users size={14} />
+                    <span>{rooms[currentSlide].capacity}</span>
+                  </div>
+                  {/* Цена на картинке */}
+                  <div className="absolute bottom-4 right-4 bg-nature-gold-500 text-nature-green-800 px-3 py-2 rounded-xl font-bold">
+                    {rooms[currentSlide].price}
+                  </div>
+                </div>
+
+                {/* Контент */}
+                <div className="p-6">
+                  <h3 className="text-2xl font-bold text-nature-green-800 mb-4">{rooms[currentSlide].name}</h3>
+
+                  {/* Удобства */}
+                  <ul className="space-y-2 mb-6">
+                    {rooms[currentSlide].features.slice(0, 3).map((feature, index) => (
+                      <li key={index} className="flex items-center text-nature-green-600">
+                        <div className="w-2 h-2 bg-nature-gold-500 rounded-full mr-3"></div>
+                        {feature}
+                      </li>
+                    ))}
+                    {rooms[currentSlide].features.length > 3 && (
+                      <li className="text-nature-green-500 text-sm">
+                        и еще {rooms[currentSlide].features.length - 3} удобств...
+                      </li>
+                    )}
+                  </ul>
+
+                  {/* Кнопка подробнее */}
+                  <Button 
+                    onClick={() => openRoomDetails(rooms[currentSlide])}
+                    className="w-full bg-nature-green-600 hover:bg-nature-green-700 text-white font-medium py-3 rounded-xl transition-colors duration-200"
+                  >
+                    Подробнее
+                  </Button>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
           
-          {/* Кнопки навигации */}
+          {/* Кнопки навигации с тенью */}
           <button
             onClick={prevSlide}
-            className="absolute left-0 top-1/2 -translate-y-1/2 h-full w-16 bg-transparent hover:bg-white/10 transition-colors duration-200 text-nature-green-600 hover:text-nature-green-700 flex items-center justify-center"
-            style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' }}
+            className="absolute left-2 lg:left-0 top-1/2 -translate-y-1/2 h-full w-12 lg:w-16 flex items-center justify-center text-gray-400 hover:text-nature-green-600 transition-colors duration-200 z-10"
+            style={{ filter: 'drop-shadow(2px 2px 8px rgba(0,0,0,0.3))' }}
           >
-            <ChevronLeft size={32} />
+            <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
           </button>
           <button
             onClick={nextSlide}
-            className="absolute right-0 top-1/2 -translate-y-1/2 h-full w-16 bg-transparent hover:bg-white/10 transition-colors duration-200 text-nature-green-600 hover:text-nature-green-700 flex items-center justify-center"
-            style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' }}
+            className="absolute right-2 lg:right-0 top-1/2 -translate-y-1/2 h-full w-12 lg:w-16 flex items-center justify-center text-gray-400 hover:text-nature-green-600 transition-colors duration-200 z-10"
+            style={{ filter: 'drop-shadow(2px 2px 8px rgba(0,0,0,0.3))' }}
           >
-            <ChevronRight size={32} />
+            <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
           </button>
           
           {/* Индикаторы точек */}
           <div className="flex justify-center mt-8 space-x-2">
-            {Array.from({ length: Math.ceil(rooms.length / 3) }).map((_, index) => (
+            {rooms.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentSlide(index)}

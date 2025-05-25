@@ -1,12 +1,5 @@
 
 import React from 'react';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 
 const Reviews = () => {
   const reviews = [{
@@ -69,7 +62,7 @@ const Reviews = () => {
 
   return (
     <section id="reviews" className="section-padding bg-nature-green-50 pb-24">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Заголовок секции */}
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-nature-green-800 mb-6">
@@ -82,40 +75,41 @@ const Reviews = () => {
         </div>
 
         {/* Слайдер отзывов */}
-        <div className="relative">
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full"
-          >
-            <CarouselContent className="-ml-4">
-              {reviews.map(review => (
-                <CarouselItem key={review.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                  <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
-                    {/* Заголовок отзыва */}
-                    <div className="flex items-center space-x-4 mb-4">
-                      <img src={review.avatar} alt={review.name} className="w-12 h-12 rounded-full object-cover" />
-                      <div className="flex-1">
-                        <h4 className="font-semibold text-nature-green-800">{review.name}</h4>
-                        <p className="text-sm text-nature-green-600">{review.location}</p>
-                      </div>
-                      <div className="text-right">
-                        <div className="flex">{renderStars(review.rating)}</div>
-                        <p className="text-xs text-nature-green-500 mt-1">{review.date}</p>
-                      </div>
-                    </div>
-
-                    {/* Текст отзыва */}
-                    <p className="text-nature-green-700 leading-relaxed">{review.text}</p>
+        <div className="relative overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+            {reviews.slice(0, 3).map(review => (
+              <div key={review.id} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
+                {/* Заголовок отзыва */}
+                <div className="flex items-center space-x-4 mb-4">
+                  <img src={review.avatar} alt={review.name} className="w-12 h-12 rounded-full object-cover" />
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-nature-green-800">{review.name}</h4>
+                    <p className="text-sm text-nature-green-600">{review.location}</p>
                   </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 h-full w-16 bg-transparent border-0 text-white/50 hover:text-nature-green-600 hover:bg-transparent rounded-none" />
-            <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 h-full w-16 bg-transparent border-0 text-white/50 hover:text-nature-green-600 hover:bg-transparent rounded-none" />
-          </Carousel>
+                  <div className="text-right">
+                    <div className="flex">{renderStars(review.rating)}</div>
+                    <p className="text-xs text-nature-green-500 mt-1">{review.date}</p>
+                  </div>
+                </div>
+
+                {/* Текст отзыва */}
+                <p className="text-nature-green-700 leading-relaxed">{review.text}</p>
+              </div>
+            ))}
+          </div>
+          
+          {/* Навигационные стрелки */}
+          <button className="absolute left-0 top-1/2 -translate-y-1/2 h-full w-16 flex items-center justify-start pl-4 text-white/50 hover:text-nature-green-500 transition-colors duration-200 z-10 shadow-lg">
+            <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          
+          <button className="absolute right-0 top-1/2 -translate-y-1/2 h-full w-16 flex items-center justify-end pr-4 text-white/50 hover:text-nature-green-500 transition-colors duration-200 z-10 shadow-lg">
+            <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
           
           {/* Индикаторы точек */}
           <div className="flex justify-center mt-8 space-x-2">

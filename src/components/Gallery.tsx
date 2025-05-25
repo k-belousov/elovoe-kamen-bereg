@@ -79,7 +79,7 @@ const Gallery = () => {
 
   return (
     <section id="gallery" className="section-padding bg-nature-green-50 pb-24">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Заголовок секции */}
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-nature-green-800 mb-6">
@@ -110,10 +110,10 @@ const Gallery = () => {
 
         {/* Карусель изображений с центральным фокусом */}
         <div className="relative">
-          <div className="flex items-center justify-center space-x-8 mb-8">
-            {/* Левое изображение */}
+          <div className="flex items-center justify-center space-x-0 lg:space-x-8 mb-8">
+            {/* Левое изображение - скрыто на мобильных */}
             {filteredImages.length > 1 && (
-              <div className="w-48 h-32 overflow-hidden rounded-lg shadow-lg opacity-70 hover:opacity-100 transition-opacity cursor-pointer">
+              <div className="hidden lg:block w-48 h-32 overflow-hidden rounded-lg shadow-lg opacity-70 hover:opacity-100 transition-opacity cursor-pointer">
                 <img
                   src={filteredImages[getPrevIndex()]?.src}
                   alt={filteredImages[getPrevIndex()]?.alt}
@@ -123,9 +123,9 @@ const Gallery = () => {
               </div>
             )}
 
-            {/* Центральное изображение - увеличено в 2 раза */}
+            {/* Центральное изображение - занимает всю ширину на мобильных */}
             <div 
-              className="w-[768px] h-[512px] overflow-hidden rounded-xl shadow-2xl cursor-pointer transform scale-105 relative"
+              className="w-full lg:w-[768px] h-[400px] lg:h-[512px] overflow-hidden rounded-xl shadow-2xl cursor-pointer transform scale-105 relative"
               onClick={() => setSelectedImage(filteredImages[currentIndex]?.src)}
             >
               <img
@@ -141,9 +141,9 @@ const Gallery = () => {
               </div>
             </div>
 
-            {/* Правое изображение */}
+            {/* Правое изображение - скрыто на мобильных */}
             {filteredImages.length > 1 && (
-              <div className="w-48 h-32 overflow-hidden rounded-lg shadow-lg opacity-70 hover:opacity-100 transition-opacity cursor-pointer">
+              <div className="hidden lg:block w-48 h-32 overflow-hidden rounded-lg shadow-lg opacity-70 hover:opacity-100 transition-opacity cursor-pointer">
                 <img
                   src={filteredImages[getNextIndex()]?.src}
                   alt={filteredImages[getNextIndex()]?.alt}
@@ -154,11 +154,11 @@ const Gallery = () => {
             )}
           </div>
 
-          {/* Навигационные стрелки */}
+          {/* Навигационные стрелки с тенью */}
           <button
             onClick={goToPrevious}
-            className="absolute left-0 top-1/2 -translate-y-1/2 h-full w-16 flex items-center justify-start pl-4 text-white/50 hover:text-nature-green-500 transition-colors duration-200 z-10"
-            style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))' }}
+            className="absolute left-2 lg:left-0 top-1/2 -translate-y-1/2 h-full w-12 lg:w-16 flex items-center justify-center text-white/70 hover:text-nature-green-500 transition-colors duration-200 z-10"
+            style={{ filter: 'drop-shadow(2px 2px 8px rgba(0,0,0,0.5))' }}
           >
             <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -167,8 +167,8 @@ const Gallery = () => {
           
           <button
             onClick={goToNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 h-full w-16 flex items-center justify-end pr-4 text-white/50 hover:text-nature-green-500 transition-colors duration-200 z-10"
-            style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))' }}
+            className="absolute right-2 lg:right-0 top-1/2 -translate-y-1/2 h-full w-12 lg:w-16 flex items-center justify-center text-white/70 hover:text-nature-green-500 transition-colors duration-200 z-10"
+            style={{ filter: 'drop-shadow(2px 2px 8px rgba(0,0,0,0.5))' }}
           >
             <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

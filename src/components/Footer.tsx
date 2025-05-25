@@ -1,7 +1,19 @@
+
 import React, { useState } from 'react';
 import LegalModal from './LegalModal';
+
 const Footer = () => {
-  const [legalModal, setLegalModal] = useState<'privacy' | 'terms' | null>(null);
+  const [legalModal, setLegalModal] = useState<'privacy' | 'terms' | 'rules' | null>(null);
+
+  const scrollToFAQ = () => {
+    const element = document.getElementById('faq');
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return <>
       <footer className="bg-nature-green-800 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -66,8 +78,16 @@ const Footer = () => {
                     Политика конфиденциальности
                   </button>
                 </li>
-                <li>Правила проживания</li>
-                <li>Часто задаваемые вопросы</li>
+                <li>
+                  <button onClick={() => setLegalModal('rules')} className="hover:text-white transition-colors text-left">
+                    Правила проживания
+                  </button>
+                </li>
+                <li>
+                  <button onClick={scrollToFAQ} className="hover:text-white transition-colors text-left">
+                    Часто задаваемые вопросы
+                  </button>
+                </li>
               </ul>
             </div>
           </div>
@@ -102,4 +122,5 @@ const Footer = () => {
       {legalModal && <LegalModal isOpen={!!legalModal} onClose={() => setLegalModal(null)} type={legalModal} />}
     </>;
 };
+
 export default Footer;
