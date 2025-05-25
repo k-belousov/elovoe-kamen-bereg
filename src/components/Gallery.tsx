@@ -69,6 +69,14 @@ const Gallery = () => {
     setCurrentIndex(currentIndex === filteredImages.length - 1 ? 0 : currentIndex + 1);
   };
 
+  const getPrevIndex = () => {
+    return currentIndex === 0 ? filteredImages.length - 1 : currentIndex - 1;
+  };
+
+  const getNextIndex = () => {
+    return currentIndex === filteredImages.length - 1 ? 0 : currentIndex + 1;
+  };
+
   return (
     <section id="gallery" className="section-padding bg-nature-green-50 pb-24">
       <div className="max-w-7xl mx-auto">
@@ -102,22 +110,22 @@ const Gallery = () => {
 
         {/* Карусель изображений с центральным фокусом */}
         <div className="relative">
-          <div className="flex items-center justify-center space-x-4 mb-8">
+          <div className="flex items-center justify-center space-x-8 mb-8">
             {/* Левое изображение */}
             {filteredImages.length > 1 && (
               <div className="w-48 h-32 overflow-hidden rounded-lg shadow-lg opacity-70 hover:opacity-100 transition-opacity cursor-pointer">
                 <img
-                  src={filteredImages[currentIndex === 0 ? filteredImages.length - 1 : currentIndex - 1]?.src}
-                  alt={filteredImages[currentIndex === 0 ? filteredImages.length - 1 : currentIndex - 1]?.alt}
+                  src={filteredImages[getPrevIndex()]?.src}
+                  alt={filteredImages[getPrevIndex()]?.alt}
                   className="w-full h-full object-cover"
                   onClick={goToPrevious}
                 />
               </div>
             )}
 
-            {/* Центральное изображение */}
+            {/* Центральное изображение - увеличено в 2 раза */}
             <div 
-              className="w-96 h-64 overflow-hidden rounded-xl shadow-2xl cursor-pointer transform scale-105 relative"
+              className="w-[768px] h-[512px] overflow-hidden rounded-xl shadow-2xl cursor-pointer transform scale-105 relative"
               onClick={() => setSelectedImage(filteredImages[currentIndex]?.src)}
             >
               <img
@@ -137,8 +145,8 @@ const Gallery = () => {
             {filteredImages.length > 1 && (
               <div className="w-48 h-32 overflow-hidden rounded-lg shadow-lg opacity-70 hover:opacity-100 transition-opacity cursor-pointer">
                 <img
-                  src={filteredImages[currentIndex === filteredImages.length - 1 ? 0 : currentIndex + 1]?.src}
-                  alt={filteredImages[currentIndex === filteredImages.length - 1 ? 0 : currentIndex + 1]?.alt}
+                  src={filteredImages[getNextIndex()]?.src}
+                  alt={filteredImages[getNextIndex()]?.alt}
                   className="w-full h-full object-cover"
                   onClick={goToNext}
                 />
@@ -150,6 +158,7 @@ const Gallery = () => {
           <button
             onClick={goToPrevious}
             className="absolute left-0 top-1/2 -translate-y-1/2 h-full w-16 flex items-center justify-start pl-4 text-white/50 hover:text-nature-green-500 transition-colors duration-200 z-10"
+            style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))' }}
           >
             <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -159,6 +168,7 @@ const Gallery = () => {
           <button
             onClick={goToNext}
             className="absolute right-0 top-1/2 -translate-y-1/2 h-full w-16 flex items-center justify-end pr-4 text-white/50 hover:text-nature-green-500 transition-colors duration-200 z-10"
+            style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))' }}
           >
             <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

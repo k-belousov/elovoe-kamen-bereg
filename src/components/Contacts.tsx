@@ -1,5 +1,7 @@
 
 import React from 'react';
+import BookingForm from './BookingForm';
+import { Button } from '@/components/ui/button';
 
 const VkIcon = () => (
   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -34,7 +36,7 @@ const Contacts = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto items-start">
+        <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto items-stretch">
           {/* Контактная информация */}
           <div className="space-y-8 h-full">
             <div className="bg-nature-green-50 rounded-2xl p-8 h-full flex flex-col justify-between">
@@ -89,13 +91,13 @@ const Contacts = () => {
               <div className="mt-8">
                 <h4 className="font-semibold text-nature-green-800 mb-3">Мы в соцсетях</h4>
                 <div className="flex space-x-3">
-                  <a href="#" className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white hover:bg-blue-700 transition-colors">
+                  <a href="#" className="w-10 h-10 bg-nature-green-600 rounded-lg flex items-center justify-center text-white hover:bg-nature-green-700 hover:scale-110 transition-all duration-200">
                     <VkIcon />
                   </a>
-                  <a href="#" className="w-10 h-10 bg-pink-600 rounded-lg flex items-center justify-center text-white hover:bg-pink-700 transition-colors">
+                  <a href="#" className="w-10 h-10 bg-nature-green-600 rounded-lg flex items-center justify-center text-white hover:bg-nature-green-700 hover:scale-110 transition-all duration-200">
                     <InstagramIcon />
                   </a>
-                  <a href="#" className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center text-white hover:bg-blue-600 transition-colors">
+                  <a href="#" className="w-10 h-10 bg-nature-green-600 rounded-lg flex items-center justify-center text-white hover:bg-nature-green-700 hover:scale-110 transition-all duration-200">
                     <TelegramIcon />
                   </a>
                 </div>
@@ -107,9 +109,18 @@ const Contacts = () => {
           <div className="space-y-8 h-full">
             <div className="bg-nature-gold-50 rounded-2xl p-8 h-full flex flex-col justify-between">
               <div>
-                <h3 className="text-2xl font-bold text-nature-green-800 mb-6">
-                  Бронирование
-                </h3>
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-2xl font-bold text-nature-green-800">
+                    Бронирование
+                  </h3>
+                  <BookingForm 
+                    trigger={
+                      <Button className="bg-nature-gold-500 hover:bg-nature-gold-600 text-nature-green-800 font-semibold px-6 py-2">
+                        Забронировать
+                      </Button>
+                    }
+                  />
+                </div>
                 <div className="space-y-4 text-nature-green-700">
                   <p className="text-lg leading-relaxed">
                     Для бронирования номеров звоните по телефону или отправляйте сообщение в Telegram.

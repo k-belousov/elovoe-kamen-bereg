@@ -8,7 +8,7 @@ import Rooms from '@/components/Rooms';
 import Services from '@/components/Services';
 import Reviews from '@/components/Reviews';
 import TelegramWidget from '@/components/TelegramWidget';
-import Map from '@/components/Map';
+import MapPlaceholder from '@/components/MapPlaceholder';
 import Contacts from '@/components/Contacts';
 import FAQ from '@/components/FAQ';
 import Footer from '@/components/Footer';
@@ -25,7 +25,7 @@ const Index = () => {
         <Services />
         <Reviews />
         <TelegramWidget />
-        <Map />
+        <MapPlaceholder />
         <Contacts />
         <FAQ />
       </main>

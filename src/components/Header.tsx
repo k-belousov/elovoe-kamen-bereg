@@ -5,10 +5,26 @@ import { Button } from '@/components/ui/button';
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+      
+      // Определяем активную секцию
+      const sections = ['about', 'gallery', 'rooms', 'services', 'reviews', 'contacts', 'faq'];
+      const currentSection = sections.find(section => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          return rect.top <= 100 && rect.bottom >= 100;
+        }
+        return false;
+      });
+      
+      if (currentSection) {
+        setActiveSection(currentSection);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -24,8 +40,8 @@ const Header = () => {
   };
 
   const navItems = [
-    { id: 'gallery', label: 'Галерея' },
     { id: 'about', label: 'О базе' },
+    { id: 'gallery', label: 'Галерея' },
     { id: 'rooms', label: 'Номера' },
     { id: 'services', label: 'Услуги' },
     { id: 'reviews', label: 'Отзывы' },
@@ -44,9 +60,9 @@ const Header = () => {
             <div className="flex items-end justify-center">
               <div className="relative">
                 {/* Большая крыша */}
-                <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-b-[8px] border-transparent border-b-nature-green-500"></div>
+                <div className="w-0 h-0 border-l-[16px] border-r-[16px] border-b-[12px] border-transparent border-b-nature-green-500"></div>
                 {/* Дом */}
-                <div className="w-6 h-4 bg-nature-green-600 mx-auto"></div>
+                <div className="w-8 h-6 bg-nature-green-600 mx-auto"></div>
               </div>
             </div>
             <div className="text-lg lg:text-xl font-semibold text-nature-green-800">
@@ -60,7 +76,11 @@ const Header = () => {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="text-nature-green-700 hover:text-nature-green-900 font-medium transition-colors duration-200"
+                className={`font-medium transition-colors duration-200 ${
+                  activeSection === item.id 
+                    ? 'text-nature-green-900 border-b-2 border-nature-gold-500' 
+                    : 'text-nature-green-700 hover:text-nature-green-900'
+                }`}
               >
                 {item.label}
               </button>
@@ -104,7 +124,11 @@ const Header = () => {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="block w-full text-left px-4 py-2 text-nature-green-700 hover:bg-nature-green-50 transition-colors duration-200"
+                  className={`block w-full text-left px-4 py-2 transition-colors duration-200 ${
+                    activeSection === item.id 
+                      ? 'text-nature-green-900 bg-nature-green-100' 
+                      : 'text-nature-green-700 hover:bg-nature-green-50'
+                  }`}
                 >
                   {item.label}
                 </button>
