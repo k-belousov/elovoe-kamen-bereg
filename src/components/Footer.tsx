@@ -93,7 +93,6 @@ const Footer = () => {
             <ul className="space-y-3">
               {[
                 { id: 'reviews', label: 'Отзывы' },
-                { id: 'news', label: 'Новости' },
                 { id: 'faq', label: 'FAQ' },
                 { id: 'contacts', label: 'Контакты' }
               ].map((item) => (
