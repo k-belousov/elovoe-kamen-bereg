@@ -8,8 +8,8 @@ import Rooms from '@/components/Rooms';
 import Services from '@/components/Services';
 import Reviews from '@/components/Reviews';
 import TelegramWidget from '@/components/TelegramWidget';
-import MapPlaceholder from '@/components/MapPlaceholder';
 import Contacts from '@/components/Contacts';
+import MapPlaceholder from '@/components/MapPlaceholder';
 import FAQ from '@/components/FAQ';
 import Footer from '@/components/Footer';
 

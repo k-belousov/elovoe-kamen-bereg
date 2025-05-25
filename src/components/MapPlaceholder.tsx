@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Phone, Mail } from 'lucide-react';
 
 const MapPlaceholder = () => {
   return (
@@ -37,14 +38,14 @@ const MapPlaceholder = () => {
                 href="tel:+74951234567" 
                 className="inline-flex items-center space-x-2 bg-nature-green-600 text-white px-6 py-3 rounded-xl hover:bg-nature-green-700 transition-colors duration-200"
               >
-                <span>📞</span>
+                <Phone size={18} />
                 <span>Позвонить</span>
               </a>
               <a 
                 href="mailto:info@kamenny-bereg.ru" 
                 className="inline-flex items-center space-x-2 bg-nature-gold-500 text-nature-green-800 px-6 py-3 rounded-xl hover:bg-nature-gold-600 transition-colors duration-200"
               >
-                <span>✉️</span>
+                <Mail size={18} />
                 <span>Написать</span>
               </a>
             </div>

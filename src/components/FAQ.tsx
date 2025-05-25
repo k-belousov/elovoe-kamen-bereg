@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { Phone, Mail, MessageCircle } from 'lucide-react';
 
 const FAQ = () => {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
@@ -113,15 +114,15 @@ const FAQ = () => {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <a href="tel:+74951234567" className="inline-flex items-center space-x-2 bg-white text-nature-green-600 px-6 py-3 rounded-xl hover:bg-gray-100 transition-colors duration-200 font-medium">
-              <span>📞</span>
+              <Phone size={18} />
               <span>Позвонить</span>
             </a>
             <a href="mailto:info@kamenny-bereg.ru" className="inline-flex items-center space-x-2 bg-white text-nature-green-600 px-6 py-3 rounded-xl hover:bg-gray-100 transition-colors duration-200 font-medium">
-              <span>✉️</span>
+              <Mail size={18} />
               <span>Написать</span>
             </a>
             <a href="#" className="inline-flex items-center space-x-2 bg-white text-nature-green-600 px-6 py-3 rounded-xl hover:bg-gray-100 transition-colors duration-200 font-medium">
-              <span>💬</span>
+              <MessageCircle size={18} />
               <span>Telegram</span>
             </a>
           </div>

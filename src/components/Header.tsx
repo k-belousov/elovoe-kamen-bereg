@@ -12,7 +12,7 @@ const Header = () => {
       setIsScrolled(window.scrollY > 50);
       
       // Определяем активную секцию
-      const sections = ['about', 'gallery', 'rooms', 'services', 'reviews', 'contacts', 'faq'];
+      const sections = ['about', 'gallery', 'rooms', 'services', 'reviews', 'news', 'contacts', 'faq'];
       const currentSection = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -32,6 +32,17 @@ const Header = () => {
   }, []);
 
   const scrollToSection = (sectionId: string) => {
+    if (sectionId === 'news') {
+      // Для новостей скроллим к TelegramWidget
+      const element = document.querySelector('section:has(#telegram-widget-container)') || 
+                      document.querySelector('[data-section="telegram"]');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        setIsMobileMenuOpen(false);
+        return;
+      }
+    }
+    
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -45,6 +56,7 @@ const Header = () => {
     { id: 'rooms', label: 'Номера' },
     { id: 'services', label: 'Услуги' },
     { id: 'reviews', label: 'Отзывы' },
+    { id: 'news', label: 'Новости' },
     { id: 'contacts', label: 'Контакты' },
     { id: 'faq', label: 'FAQ' }
   ];
@@ -71,12 +83,12 @@ const Header = () => {
           </div>
 
           {/* Десктопная навигация */}
-          <nav className="hidden lg:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`font-medium transition-colors duration-200 ${
+                className={`font-medium transition-colors duration-200 text-sm xl:text-base ${
                   activeSection === item.id 
                     ? 'text-nature-green-900 border-b-2 border-nature-gold-500' 
                     : 'text-nature-green-700 hover:text-nature-green-900'
@@ -91,7 +103,7 @@ const Header = () => {
           <div className="hidden lg:block">
             <Button 
               onClick={() => scrollToSection('contacts')}
-              className="bg-nature-gold-500 hover:bg-nature-gold-600 text-nature-green-800 font-medium px-6 py-2"
+              className="bg-nature-gold-500 hover:bg-nature-gold-600 text-nature-green-800 font-medium px-4 xl:px-6 py-2 text-sm xl:text-base"
             >
               Забронировать
             </Button>
