@@ -53,7 +53,7 @@ const Contacts = () => {
                     <div>
                       <h4 className="font-semibold text-nature-green-800 mb-1">Телефон</h4>
                       <p className="text-nature-green-700">+7 952 512-97-38</p>
-                      <p className="text-nature-green-700">+7 (916) 987-65-43</p>
+                      
                       <p className="text-sm text-nature-green-600">Ежедневно с 9:00 до 21:00</p>
                     </div>
                   </div>
