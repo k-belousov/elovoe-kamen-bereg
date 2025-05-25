@@ -1,27 +1,28 @@
 
 import React from 'react';
+import { Home, Waves, Mountain, Bath } from 'lucide-react';
 
 const About = () => {
   const features = [
     {
       title: 'Уютные номера',
       description: 'Комфортабельные номера с современными удобствами',
-      icon: '🏡'
+      icon: Home
     },
     {
       title: 'Чистое озеро',
       description: 'Кристально чистая вода для купания и рыбалки',
-      icon: '🏊‍♂️'
+      icon: Waves
     },
     {
       title: 'Активный отдых',
       description: 'Множество развлечений для всей семьи',
-      icon: '🚴‍♂️'
+      icon: Mountain
     },
     {
       title: 'Русская баня',
       description: 'Традиционная баня с вениками и купелью',
-      icon: '🛁'
+      icon: Bath
     }
   ];
 
@@ -57,15 +58,20 @@ const About = () => {
 
             {/* Особенности */}
             <div className="grid sm:grid-cols-2 gap-6">
-              {features.map((feature, index) => (
-                <div key={index} className="flex items-start space-x-4 p-4 bg-nature-green-50 rounded-xl">
-                  <div className="text-2xl">{feature.icon}</div>
-                  <div>
-                    <h3 className="font-semibold text-nature-green-800 mb-2">{feature.title}</h3>
-                    <p className="text-nature-green-600 text-sm">{feature.description}</p>
+              {features.map((feature, index) => {
+                const IconComponent = feature.icon;
+                return (
+                  <div key={index} className="flex items-start space-x-4 p-4 bg-nature-green-50 rounded-xl">
+                    <div className="text-nature-green-600">
+                      <IconComponent size={24} />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-nature-green-800 mb-2">{feature.title}</h3>
+                      <p className="text-nature-green-600 text-sm">{feature.description}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>

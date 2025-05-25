@@ -12,7 +12,7 @@ const Header = () => {
       setIsScrolled(window.scrollY > 50);
       
       // Определяем активную секцию
-      const sections = ['about', 'gallery', 'rooms', 'services', 'reviews', 'contacts', 'faq'];
+      const sections = ['about', 'gallery', 'rooms', 'services', 'reviews', 'news', 'map', 'contacts', 'faq'];
       const currentSection = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -45,6 +45,8 @@ const Header = () => {
     { id: 'rooms', label: 'Номера' },
     { id: 'services', label: 'Услуги' },
     { id: 'reviews', label: 'Отзывы' },
+    { id: 'news', label: 'Новости' },
+    { id: 'map', label: 'Как нас найти' },
     { id: 'contacts', label: 'Контакты' },
     { id: 'faq', label: 'FAQ' }
   ];

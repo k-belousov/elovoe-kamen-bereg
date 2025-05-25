@@ -2,6 +2,7 @@
 import React from 'react';
 import BookingForm from './BookingForm';
 import { Button } from '@/components/ui/button';
+import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 
 const VkIcon = () => (
   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -49,7 +50,7 @@ const Contacts = () => {
                   {/* Телефон */}
                   <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 bg-nature-green-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <span className="text-white text-xl">📞</span>
+                      <Phone className="text-white" size={20} />
                     </div>
                     <div>
                       <h4 className="font-semibold text-nature-green-800 mb-1">Телефон</h4>
@@ -62,7 +63,7 @@ const Contacts = () => {
                   {/* Email */}
                   <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 bg-nature-green-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <span className="text-white text-xl">✉️</span>
+                      <Mail className="text-white" size={20} />
                     </div>
                     <div>
                       <h4 className="font-semibold text-nature-green-800 mb-1">Email</h4>
@@ -74,7 +75,7 @@ const Contacts = () => {
                   {/* Адрес */}
                   <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 bg-nature-green-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <span className="text-white text-xl">📍</span>
+                      <MapPin className="text-white" size={20} />
                     </div>
                     <div>
                       <h4 className="font-semibold text-nature-green-800 mb-1">Адрес</h4>
@@ -111,16 +112,16 @@ const Contacts = () => {
               <div>
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="text-2xl font-bold text-nature-green-800">
-                    Бронирование
+                    Забронировать
                   </h3>
-                  <BookingForm 
-                    trigger={
-                      <Button className="bg-nature-gold-500 hover:bg-nature-gold-600 text-nature-green-800 font-semibold px-6 py-2">
-                        Забронировать
-                      </Button>
-                    }
-                  />
                 </div>
+                <BookingForm 
+                  trigger={
+                    <Button className="w-full bg-nature-gold-500 hover:bg-nature-gold-600 text-nature-green-800 font-semibold px-6 py-3 mb-6">
+                      Забронировать номер
+                    </Button>
+                  }
+                />
                 <div className="space-y-4 text-nature-green-700">
                   <p className="text-lg leading-relaxed">
                     Для бронирования номеров звоните по телефону или отправляйте сообщение в Telegram.
@@ -151,9 +152,12 @@ const Contacts = () => {
 
               {/* Режим работы */}
               <div className="bg-white rounded-xl p-6 border border-nature-green-200 mt-6">
-                <h4 className="font-semibold text-nature-green-800 mb-4">
-                  Режим работы
-                </h4>
+                <div className="flex items-center mb-4">
+                  <Clock className="text-nature-green-600 mr-2" size={20} />
+                  <h4 className="font-semibold text-nature-green-800">
+                    Режим работы
+                  </h4>
+                </div>
                 <div className="space-y-2 text-nature-green-700">
                   <div className="flex justify-between">
                     <span>Понедельник - Пятница:</span>

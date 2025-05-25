@@ -7,6 +7,7 @@ import Gallery from '@/components/Gallery';
 import Rooms from '@/components/Rooms';
 import Services from '@/components/Services';
 import Reviews from '@/components/Reviews';
+import News from '@/components/News';
 import TelegramWidget from '@/components/TelegramWidget';
 import MapPlaceholder from '@/components/MapPlaceholder';
 import Contacts from '@/components/Contacts';
@@ -24,6 +25,7 @@ const Index = () => {
         <Rooms />
         <Services />
         <Reviews />
+        <News />
         <TelegramWidget />
         <MapPlaceholder />
         <Contacts />
