@@ -50,7 +50,7 @@ const Map = () => {
               Открыть в Google Maps
             </a>
              <a
-              href={2GISMapUrl}
+              href={twoGISMapUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2 rounded-lg bg-nature-green-600 text-white text-sm font-medium hover:bg-nature-gold-700"
