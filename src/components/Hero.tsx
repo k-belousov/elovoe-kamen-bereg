@@ -13,7 +13,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Фоновое изображение (озеро плоское с природой, акварель) */}
       <div className="absolute inset-0 z-0">
         <img 
@@ -61,20 +61,6 @@ const Hero = () => {
             ЗАБРОНИРОВАТЬ
           </Button>
         </div>
-
-        {/* Прокрутка вниз с уменьшенной частотой анимации */}
-        <button 
-          onClick={() => scrollToSection('about')} 
-          className="text-white/80 hover:text-white transition-colors duration-200"
-          style={{ animation: 'bounce 4s infinite' }}
-        >
-          <div className="flex flex-col items-center space-y-2">
-            <span className="text-sm uppercase tracking-wider">Узнать больше</span>
-            <div className="w-6 h-10 border-2 border-white/60 rounded-full flex justify-center">
-              <div className="w-1 h-3 bg-white/60 rounded-full mt-2"></div>
-            </div>
-          </div>
-        </button>
       </div>
     </section>
   );

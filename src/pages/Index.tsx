@@ -12,6 +12,7 @@ import Contacts from '@/components/Contacts';
 import MapPlaceholder from '@/components/MapPlaceholder';
 import FAQ from '@/components/FAQ';
 import Footer from '@/components/Footer';
+import FloatingNavButton from '@/components/FloatingNavButton';
 
 const Index = () => {
   return (
@@ -30,6 +31,7 @@ const Index = () => {
         <FAQ />
       </main>
       <Footer />
+      <FloatingNavButton />
     </div>
   );
 };

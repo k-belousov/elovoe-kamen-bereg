@@ -1,7 +1,16 @@
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
 
 const Services = () => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ 
+    loop: true,
+    align: 'center',
+    breakpoints: {
+      '(min-width: 768px)': { slidesToScroll: 2 },
+      '(min-width: 1024px)': { slidesToScroll: 3 }
+    }
+  });
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const services = [
@@ -39,22 +48,24 @@ const Services = () => {
     }
   ];
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % services.length);
-  };
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + services.length) % services.length);
-  };
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
 
-  const getVisibleServices = () => {
-    const result = [];
-    for (let i = 0; i < 3; i++) {
-      const index = (currentSlide + i) % services.length;
-      result.push(services[index]);
-    }
-    return result;
-  };
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setCurrentSlide(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
+
+  React.useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on('select', onSelect);
+  }, [emblaApi, onSelect]);
 
   return (
     <section id="services" className="section-padding bg-white pb-24">
@@ -72,98 +83,60 @@ const Services = () => {
 
         {/* Слайдер услуг */}
         <div className="relative overflow-hidden">
-          {/* Desktop версия */}
-          <div className="hidden md:block">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
-              {getVisibleServices().map(service => (
-                <div key={service.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group h-full">
-                  {/* Изображение */}
-                  <div className="relative h-48 overflow-hidden">
-                    <img 
-                      src={service.image} 
-                      alt={service.title} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-nature-green-900/60 to-transparent"></div>
-                    <div className="absolute top-4 right-4 bg-nature-gold-500 text-nature-green-800 px-3 py-1 rounded-full text-sm font-semibold">
-                      {service.price}
+          <div className="embla" ref={emblaRef}>
+            <div className="embla__container flex">
+              {services.map(service => (
+                <div key={service.id} className="embla__slide flex-none w-full md:w-1/2 lg:w-1/3 px-3">
+                  <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group h-full">
+                    {/* Изображение */}
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src={service.image} 
+                        alt={service.title} 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-nature-green-900/60 to-transparent"></div>
+                      <div className="absolute top-4 right-4 bg-nature-gold-500 text-nature-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+                        {service.price}
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Контент */}
-                  <div className="p-6 flex flex-col h-[calc(100%-12rem)]">
-                    <h3 className="text-xl font-bold text-nature-green-800 mb-3">{service.title}</h3>
-                    <p className="text-nature-green-600 mb-4 leading-relaxed flex-grow">{service.description}</p>
-                    
-                    {/* Особенности */}
-                    <div className="space-y-2">
-                      <h4 className="text-sm font-semibold text-nature-green-700 uppercase tracking-wider">Включено:</h4>
-                      <ul className="grid grid-cols-2 gap-1 text-sm text-nature-green-600">
-                        {service.features.map((feature, index) => (
-                          <li key={index} className="flex items-center">
-                            <div className="w-1.5 h-1.5 bg-nature-gold-500 rounded-full mr-2"></div>
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
+                    {/* Контент */}
+                    <div className="p-6 flex flex-col h-[calc(100%-12rem)]">
+                      <h3 className="text-xl font-bold text-nature-green-800 mb-3">{service.title}</h3>
+                      <p className="text-nature-green-600 mb-4 leading-relaxed flex-grow">{service.description}</p>
+                      
+                      {/* Особенности */}
+                      <div className="space-y-2">
+                        <h4 className="text-sm font-semibold text-nature-green-700 uppercase tracking-wider">Включено:</h4>
+                        <ul className="grid grid-cols-2 gap-1 text-sm text-nature-green-600">
+                          {service.features.map((feature, index) => (
+                            <li key={index} className="flex items-center">
+                              <div className="w-1.5 h-1.5 bg-nature-gold-500 rounded-full mr-2"></div>
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-
-          {/* Mobile версия - показываем по одной услуге */}
-          <div className="block md:hidden">
-            <div className="max-w-sm mx-auto">
-              <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group h-full">
-                {/* Изображение */}
-                <div className="relative h-48 overflow-hidden">
-                  <img 
-                    src={services[currentSlide].image} 
-                    alt={services[currentSlide].title} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-nature-green-900/60 to-transparent"></div>
-                  <div className="absolute top-4 right-4 bg-nature-gold-500 text-nature-green-800 px-3 py-1 rounded-full text-sm font-semibold">
-                    {services[currentSlide].price}
-                  </div>
-                </div>
-
-                {/* Контент */}
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-nature-green-800 mb-3">{services[currentSlide].title}</h3>
-                  <p className="text-nature-green-600 mb-4 leading-relaxed">{services[currentSlide].description}</p>
-                  
-                  {/* Особенности */}
-                  <div className="space-y-2">
-                    <h4 className="text-sm font-semibold text-nature-green-700 uppercase tracking-wider">Включено:</h4>
-                    <ul className="grid grid-cols-2 gap-1 text-sm text-nature-green-600">
-                      {services[currentSlide].features.map((feature, index) => (
-                        <li key={index} className="flex items-center">
-                          <div className="w-1.5 h-1.5 bg-nature-gold-500 rounded-full mr-2"></div>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
           
           {/* Кнопки навигации */}
           <button
-            onClick={prevSlide}
-            className="absolute left-0 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center text-nature-green-600 hover:text-nature-green-800 transition-colors duration-200 z-10 bg-white/80 rounded-full shadow-lg ml-4"
+            onClick={scrollPrev}
+            className="absolute left-4 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center text-nature-green-600 hover:text-nature-green-800 transition-colors duration-200 z-10 bg-white/80 rounded-full shadow-lg backdrop-blur-sm"
           >
             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
           <button
-            onClick={nextSlide}
-            className="absolute right-0 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center text-nature-green-600 hover:text-nature-green-800 transition-colors duration-200 z-10 bg-white/80 rounded-full shadow-lg mr-4"
+            onClick={scrollNext}
+            className="absolute right-4 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center text-nature-green-600 hover:text-nature-green-800 transition-colors duration-200 z-10 bg-white/80 rounded-full shadow-lg backdrop-blur-sm"
           >
             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -175,7 +148,7 @@ const Services = () => {
             {services.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentSlide(index)}
+                onClick={() => emblaApi?.scrollTo(index)}
                 className={`w-3 h-3 rounded-full transition-colors ${
                   index === currentSlide ? 'bg-nature-green-600' : 'bg-nature-green-300'
                 }`}

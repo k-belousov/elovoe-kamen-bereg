@@ -1,7 +1,16 @@
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
 
 const Reviews = () => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ 
+    loop: true,
+    align: 'center',
+    breakpoints: {
+      '(min-width: 768px)': { slidesToScroll: 2 },
+      '(min-width: 1024px)': { slidesToScroll: 3 }
+    }
+  });
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const reviews = [{
@@ -54,22 +63,24 @@ const Reviews = () => {
     ));
   };
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % reviews.length);
-  };
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + reviews.length) % reviews.length);
-  };
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
 
-  const getVisibleReviews = () => {
-    const result = [];
-    for (let i = 0; i < 3; i++) {
-      const index = (currentSlide + i) % reviews.length;
-      result.push(reviews[index]);
-    }
-    return result;
-  };
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setCurrentSlide(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
+
+  React.useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on('select', onSelect);
+  }, [emblaApi, onSelect]);
 
   return (
     <section id="reviews" className="section-padding bg-nature-green-50 pb-24">
@@ -87,58 +98,36 @@ const Reviews = () => {
 
         {/* Слайдер отзывов */}
         <div className="relative overflow-hidden">
-          {/* Desktop версия */}
-          <div className="hidden md:block">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
-              {getVisibleReviews().map(review => (
-                <div key={review.id} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
-                  {/* Заголовок отзыва */}
-                  <div className="flex items-center space-x-4 mb-4">
-                    <img src={review.avatar} alt={review.name} className="w-12 h-12 rounded-full object-cover" />
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-nature-green-800">{review.name}</h4>
-                      <p className="text-sm text-nature-green-600">{review.location}</p>
+          <div className="embla" ref={emblaRef}>
+            <div className="embla__container flex">
+              {reviews.map(review => (
+                <div key={review.id} className="embla__slide flex-none w-full md:w-1/2 lg:w-1/3 px-3">
+                  <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
+                    {/* Заголовок отзыва */}
+                    <div className="flex items-center space-x-4 mb-4">
+                      <img src={review.avatar} alt={review.name} className="w-12 h-12 rounded-full object-cover" />
+                      <div className="flex-1">
+                        <h4 className="font-semibold text-nature-green-800">{review.name}</h4>
+                        <p className="text-sm text-nature-green-600">{review.location}</p>
+                      </div>
+                      <div className="text-right">
+                        <div className="flex">{renderStars(review.rating)}</div>
+                        <p className="text-xs text-nature-green-500 mt-1">{review.date}</p>
+                      </div>
                     </div>
-                    <div className="text-right">
-                      <div className="flex">{renderStars(review.rating)}</div>
-                      <p className="text-xs text-nature-green-500 mt-1">{review.date}</p>
-                    </div>
-                  </div>
 
-                  {/* Текст отзыва */}
-                  <p className="text-nature-green-700 leading-relaxed">{review.text}</p>
+                    {/* Текст отзыва */}
+                    <p className="text-nature-green-700 leading-relaxed">{review.text}</p>
+                  </div>
                 </div>
               ))}
-            </div>
-          </div>
-
-          {/* Mobile версия - показываем по одному отзыву */}
-          <div className="block md:hidden">
-            <div className="max-w-sm mx-auto">
-              <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
-                {/* Заголовок отзыва */}
-                <div className="flex items-center space-x-4 mb-4">
-                  <img src={reviews[currentSlide].avatar} alt={reviews[currentSlide].name} className="w-12 h-12 rounded-full object-cover" />
-                  <div className="flex-1">
-                    <h4 className="font-semibold text-nature-green-800">{reviews[currentSlide].name}</h4>
-                    <p className="text-sm text-nature-green-600">{reviews[currentSlide].location}</p>
-                  </div>
-                  <div className="text-right">
-                    <div className="flex">{renderStars(reviews[currentSlide].rating)}</div>
-                    <p className="text-xs text-nature-green-500 mt-1">{reviews[currentSlide].date}</p>
-                  </div>
-                </div>
-
-                {/* Текст отзыва */}
-                <p className="text-nature-green-700 leading-relaxed">{reviews[currentSlide].text}</p>
-              </div>
             </div>
           </div>
           
           {/* Навигационные стрелки */}
           <button 
-            onClick={prevSlide}
-            className="absolute left-0 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center text-nature-green-600 hover:text-nature-green-800 transition-colors duration-200 z-10 bg-white/80 rounded-full shadow-lg ml-4"
+            onClick={scrollPrev}
+            className="absolute left-4 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center text-nature-green-600 hover:text-nature-green-800 transition-colors duration-200 z-10 bg-white/80 rounded-full shadow-lg backdrop-blur-sm"
           >
             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -146,8 +135,8 @@ const Reviews = () => {
           </button>
           
           <button 
-            onClick={nextSlide}
-            className="absolute right-0 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center text-nature-green-600 hover:text-nature-green-800 transition-colors duration-200 z-10 bg-white/80 rounded-full shadow-lg mr-4"
+            onClick={scrollNext}
+            className="absolute right-4 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center text-nature-green-600 hover:text-nature-green-800 transition-colors duration-200 z-10 bg-white/80 rounded-full shadow-lg backdrop-blur-sm"
           >
             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -159,7 +148,7 @@ const Reviews = () => {
             {reviews.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentSlide(index)}
+                onClick={() => emblaApi?.scrollTo(index)}
                 className={`w-3 h-3 rounded-full transition-colors ${
                   index === currentSlide ? 'bg-nature-green-600' : 'bg-nature-green-300'
                 }`}
