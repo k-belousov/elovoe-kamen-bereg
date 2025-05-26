@@ -3,17 +3,12 @@
 import React from 'react';
 
 const Map = () => {
-  const yandexMapUrl =
-    'https://yandex.ru/maps/?ll=60.855114%2C55.041500&mode=routes&rtext=55.159902%2C61.402554~55.004665%2C60.316781&rtt=auto&ruri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1MzE1OTUyNxIg0KDQvtGB0YHQuNGPLCDQp9C10LvRj9Cx0LjQvdGB0LoiCg04nHVCFb2jXEI%2C~ymapsbm1%3A%2F%2Forg%3Foid%3D203268538693&z=10.3';
-
-  const googleMapsUrl =
-    'https://www.google.com/maps/dir/Челябинск,+Челябинская+область,+Россия/Каменный+Берег,+Чебаркуль,+Челябинская+обл.,+Россия,+456441/@55.0754697,60.5480156,82439m/data=!3m2!1e3!4b1!4m14!4m13!1m5!1m1!1s0x43c592cb104a3a8d:0xef224a2a6d1711bf!2m2!1d61.4368432!2d55.1644419!1m5!1m1!1s0x43c56bef9e487133:0x18901042074edcb8!2m2!1d60.3180498!2d55.0053557!3e0?entry=ttu&g_ep=EgoyMDI1MDUyMS4wIKXMDSoASAFQAw%3D%3D';
-
-  const twoGisUrl =
-    'https://2gis.ru/chelyabinsk/directions/points/61.402709%2C55.157389%3B2111685095587875%7C60.315461%2C55.005338%3B70030076176875106?m=60.859669%2C55.040166%2F10.45&immersive=on';
+  const yandexMapUrl = 'https://yandex.ru/maps/-/CHCWrHoc';
+  const googleMapsUrl = 'https://www.google.com/maps/place/Каменный+Берег/@55.0053557,60.315461,17z/data=!3m1!4b1!4m6!3m5!1s0x43c56bef9e487133:0x18901042074edcb8!8m2!3d55.0053557!4d60.3180498!16s%2Fg%2F11s7ts5j_1?entry=ttu';
+  const twoGisUrl = 'https://2gis.ru/chebarkul/firm/70030076176875106';
 
   const iframeSrc =
-    'https://yandex.ru/map-widget/v1/?ll=60.855114%2C55.041500&mode=routes&rtext=55.159902%2C61.402554~55.004665%2C60.316781&rtt=auto&z=10.3';
+    'https://yandex.ru/map-widget/v1/?ll=60.855114%2C55.041500&mode=routes&rtext=55.1644419%2C61.4368432~ymapsbm1%3A%2F%2Forg%3Foid%3D203268538693&rtt=auto&z=10.3';
 
   return (
     <section id="map" className="py-12 bg-nature-green-50">
@@ -69,8 +64,9 @@ const Map = () => {
               allowFullScreen
               loading="lazy"
               className="w-full h-full"
+              title="Карта проезда к базе отдыха Каменный берег"
             ></iframe>
-          </div>      
+          </div>
         </div>
       </div>
     </section>
