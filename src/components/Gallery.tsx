@@ -1,5 +1,5 @@
-
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -59,6 +59,33 @@ const Gallery = () => {
 
   const [currentIndex, setCurrentIndex] = useState(Math.floor(filteredImages.length / 2));
 
+  const [emblaRef, emblaApi] = useEmblaCarousel({ 
+    loop: true,
+    align: 'center',
+    dragFree: true,
+    containScroll: 'trimSnaps',
+    breakpoints: {
+      '(min-width: 768px)': { slidesToScroll: 2 },
+      '(min-width: 1024px)': { slidesToScroll: 3 }
+    }
+  });
+
+  // Обновляем индикаторы при изменении текущего слайда
+  useEffect(() => {
+    if (!emblaApi) return;
+    
+    const onSelect = () => {
+      setCurrentIndex(emblaApi.selectedScrollSnap());
+    };
+    
+    emblaApi.on('select', onSelect);
+    onSelect(); // Инициализация начального состояния
+    
+    return () => {
+      emblaApi.off('select', onSelect);
+    };
+  }, [emblaApi, filteredImages.length]);
+
   // Функция для перехода к предыдущему изображению с бесконечной прокруткой
   const goToPrevious = () => {
     setCurrentIndex(currentIndex === 0 ? filteredImages.length - 1 : currentIndex - 1);
@@ -110,48 +137,52 @@ const Gallery = () => {
 
         {/* Карусель изображений с центральным фокусом */}
         <div className="relative">
-          <div className="flex items-center justify-center space-x-0 lg:space-x-8 mb-8">
-            {/* Левое изображение - скрыто на мобильных */}
-            {filteredImages.length > 1 && (
-              <div className="hidden lg:block w-48 h-32 overflow-hidden rounded-lg shadow-lg opacity-70 hover:opacity-100 transition-opacity cursor-pointer">
-                <img
-                  src={filteredImages[getPrevIndex()]?.src}
-                  alt={filteredImages[getPrevIndex()]?.alt}
-                  className="w-full h-full object-cover"
-                  onClick={goToPrevious}
-                />
-              </div>
-            )}
+          <div className="embla" ref={emblaRef}>
+            <div className="embla__container">
+              <div className="flex items-center justify-center space-x-0 lg:space-x-8 mb-8">
+                {/* Левое изображение - скрыто на мобильных */}
+                {filteredImages.length > 1 && (
+                  <div className="hidden lg:block w-48 h-32 overflow-hidden rounded-lg shadow-lg opacity-70 hover:opacity-100 transition-opacity cursor-pointer">
+                    <img
+                      src={filteredImages[getPrevIndex()]?.src}
+                      alt={filteredImages[getPrevIndex()]?.alt}
+                      className="w-full h-full object-cover"
+                      onClick={goToPrevious}
+                    />
+                  </div>
+                )}
 
-            {/* Центральное изображение - занимает всю ширину на мобильных */}
-            <div 
-              className="w-full lg:w-[768px] h-[400px] lg:h-[512px] overflow-hidden rounded-xl shadow-2xl cursor-pointer transform scale-105 relative"
-              onClick={() => setSelectedImage(filteredImages[currentIndex]?.src)}
-            >
-              <img
-                src={filteredImages[currentIndex]?.src}
-                alt={filteredImages[currentIndex]?.alt}
-                className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-nature-green-900/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300">
-                <div className="absolute bottom-4 left-4 text-white">
-                  <p className="font-medium">{filteredImages[currentIndex]?.alt}</p>
-                  <p className="text-sm opacity-90">{filteredImages[currentIndex]?.category}</p>
+                {/* Центральное изображение - занимает всю ширину на мобильных */}
+                <div 
+                  className="w-full lg:w-[768px] h-[400px] lg:h-[512px] overflow-hidden rounded-xl shadow-2xl cursor-pointer transform scale-105 relative"
+                  onClick={() => setSelectedImage(filteredImages[currentIndex]?.src)}
+                >
+                  <img
+                    src={filteredImages[currentIndex]?.src}
+                    alt={filteredImages[currentIndex]?.alt}
+                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-nature-green-900/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute bottom-4 left-4 text-white">
+                      <p className="font-medium">{filteredImages[currentIndex]?.alt}</p>
+                      <p className="text-sm opacity-90">{filteredImages[currentIndex]?.category}</p>
+                    </div>
+                  </div>
                 </div>
+
+                {/* Правое изображение - скрыто на мобильных */}
+                {filteredImages.length > 1 && (
+                  <div className="hidden lg:block w-48 h-32 overflow-hidden rounded-lg shadow-lg opacity-70 hover:opacity-100 transition-opacity cursor-pointer">
+                    <img
+                      src={filteredImages[getNextIndex()]?.src}
+                      alt={filteredImages[getNextIndex()]?.alt}
+                      className="w-full h-full object-cover"
+                      onClick={goToNext}
+                    />
+                  </div>
+                )}
               </div>
             </div>
-
-            {/* Правое изображение - скрыто на мобильных */}
-            {filteredImages.length > 1 && (
-              <div className="hidden lg:block w-48 h-32 overflow-hidden rounded-lg shadow-lg opacity-70 hover:opacity-100 transition-opacity cursor-pointer">
-                <img
-                  src={filteredImages[getNextIndex()]?.src}
-                  alt={filteredImages[getNextIndex()]?.alt}
-                  className="w-full h-full object-cover"
-                  onClick={goToNext}
-                />
-              </div>
-            )}
           </div>
 
           {/* Навигационные стрелки с тенью */}
