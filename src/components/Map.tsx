@@ -3,11 +3,17 @@
 import React, { useState } from 'react';
 
 const Map = () => {
-  const [routeType, setRouteType] = useState<'auto' | 'pd'>('auto');
+  const [routeType, setRouteType] = useState<'auto' | 'masstransit'>('auto');
 
   const iframeSrc = `https://yandex.ru/map-widget/v1/?ll=60.855114%2C55.041500&mode=routes&rtext=55.159902%2C61.402554~55.004665%2C60.316781&rtt=${routeType}&z=10.3`;
 
-  const externalMapUrl = `https://yandex.ru/maps/?ll=60.855114%2C55.041500&mode=routes&rtext=55.159902%2C61.402554~55.004665%2C60.316781&rtt=${routeType}&z=10.3`;
+  const externalYandexUrl =
+    'https://yandex.ru/maps/?ll=60.855114%2C55.041500&mode=routes&rtext=55.159902%2C61.402554~55.004665%2C60.316781&rtt=' +
+    routeType +
+    '&ruri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1MzE1OTUyNxIg0KDQvtGB0YHQuNGPLCDQp9C10LvRj9Cx0LjQvdGB0LoiCg04nHVCFb2jXEI%2C~ymapsbm1%3A%2F%2Forg%3Foid%3D203268538693&z=10.3';
+
+  const externalGoogleUrl =
+    'https://www.google.com/maps/dir/Челябинск,+Челябинская+область,+Россия/Каменный+Берег,+Чебаркуль,+Челябинская+обл.,+Россия,+456441/@55.0754697,60.5480156,82439m/data=!3m2!1e3!4b1!4m14!4m13!1m5!1m1!1s0x43c592cb104a3a8d:0xef224a2a6d1711bf!2m2!1d61.4368432!2d55.1644419!1m5!1m1!1s0x43c56bef9e487133:0x18901042074edcb8!2m2!1d60.3180498!2d55.0053557!3e0?entry=ttu&g_ep=EgoyMDI1MDUyMS4wIKXMDSoASAFQAw%3D%3D';
 
   return (
     <section id="map" className="py-12 bg-nature-green-50">
@@ -23,9 +29,9 @@ const Map = () => {
           </p>
         </div>
 
-        {/* Интерактивная карта */}
+        {/* Интерактивная карта с маршрутом */}
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-          {/* Переключатель маршрута */}
+          {/* Переключатели и кнопки */}
           <div className="flex flex-wrap justify-center items-center gap-4 px-6 pt-6">
             <button
               onClick={() => setRouteType('auto')}
@@ -38,17 +44,18 @@ const Map = () => {
               На автомобиле
             </button>
             <button
-              onClick={() => setRouteType('pd')}
+              onClick={() => setRouteType('masstransit')}
               className={`px-4 py-2 rounded-lg text-sm font-medium ${
-                routeType === 'pd'
+                routeType === 'masstransit'
                   ? 'bg-nature-green-600 text-white'
                   : 'bg-gray-200 text-gray-800'
               }`}
             >
-              Пешком
+              Общественный транспорт
             </button>
+
             <a
-              href={externalMapUrl}
+              href={externalYandexUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="ml-4 px-4 py-2 rounded-lg bg-nature-gold-600 text-white text-sm font-medium hover:bg-nature-gold-700"
@@ -56,7 +63,7 @@ const Map = () => {
               Открыть в Яндекс.Картах
             </a>
             <a
-              href="https://maps.google.com"
+              href={externalGoogleUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2 rounded-lg bg-nature-green-600 text-white text-sm font-medium hover:bg-nature-green-700"
@@ -76,33 +83,6 @@ const Map = () => {
               loading="lazy"
               className="w-full h-full"
             ></iframe>
-          </div>
-
-          {/* Информация под картой */}
-          <div className="p-6 bg-white">
-            <div className="grid md:grid-cols-3 gap-6 text-center">
-              <div>
-                <div className="w-12 h-12 bg-nature-green-600 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <span className="text-white text-xl">🚗</span>
-                </div>
-                <h4 className="font-semibold text-nature-green-800 mb-2">На автомобиле</h4>
-                <p className="text-nature-green-600 text-sm">Около 1.5 часов от Челябинска по трассе М5</p>
-              </div>
-              <div>
-                <div className="w-12 h-12 bg-nature-green-600 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <span className="text-white text-xl">🚌</span>
-                </div>
-                <h4 className="font-semibold text-nature-green-800 mb-2">На автобусе</h4>
-                <p className="text-nature-green-600 text-sm">До Чебаркуля, затем такси 10–15 минут</p>
-              </div>
-              <div>
-                <div className="w-12 h-12 bg-nature-green-600 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <span className="text-white text-xl">🚂</span>
-                </div>
-                <h4 className="font-semibold text-nature-green-800 mb-2">На поезде</h4>
-                <p className="text-nature-green-600 text-sm">Поезд до Челябинска, далее авто или такси</p>
-              </div>
-            </div>
           </div>
         </div>
       </div>
