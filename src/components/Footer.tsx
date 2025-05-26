@@ -1,10 +1,7 @@
-
 import React, { useState } from 'react';
 import LegalModal from './LegalModal';
-
 const Footer = () => {
   const [legalModal, setLegalModal] = useState<'privacy' | 'terms' | 'rules' | null>(null);
-
   const scrollToFAQ = () => {
     const element = document.getElementById('faq');
     if (element) {
@@ -13,7 +10,6 @@ const Footer = () => {
       });
     }
   };
-
   return <>
       <footer className="bg-nature-green-800 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -47,7 +43,7 @@ const Footer = () => {
               <div className="space-y-3 text-nature-green-200">
                 <div>
                   <p className="text-sm text-nature-green-300">Адрес:</p>
-                  <p>Тверская область, Осташковский район, д. Березовка</p>
+                  <p>Челябинская область, Чебаркульский район</p>
                 </div>
                 <div>
                   <p className="text-sm text-nature-green-300">Телефон:</p>
@@ -122,5 +118,4 @@ const Footer = () => {
       {legalModal && <LegalModal isOpen={!!legalModal} onClose={() => setLegalModal(null)} type={legalModal} />}
     </>;
 };
-
 export default Footer;
