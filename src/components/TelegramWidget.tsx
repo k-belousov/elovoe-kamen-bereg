@@ -29,7 +29,7 @@ const TelegramWidget = () => {
   }, []);
 
   return (
-    <section id="news" className="section-padding bg-nature-green-800 px-4 sm:px-6 lg:px-8" data-section="telegram">
+    <section id="telegram" className="section-padding bg-nature-green-800 px-4 sm:px-6 lg:px-8" data-section="telegram">
       <div className="max-w-4xl mx-auto">
         {/* Заголовок секции */}
         <div className="text-center mb-12">

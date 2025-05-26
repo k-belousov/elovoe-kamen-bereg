@@ -3,7 +3,7 @@ import React from 'react';
 
 const Map = () => {
   return (
-    <section className="py-12 bg-nature-green-50">
+    <section id="map" className="py-12 bg-nature-green-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Заголовок секции */}
         <div className="text-center mb-8">

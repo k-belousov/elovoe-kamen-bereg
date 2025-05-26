@@ -52,15 +52,12 @@ const FloatingNavButton = () => {
   return (
     <button
       onClick={scrollToNextSection}
-      className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 text-nature-green-800 font-medium"
-      style={{ 
-        animation: 'bounce 3s infinite'
-      }}
+      className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 text-nature-green-800 font-medium transition-all duration-300 hover:scale-110"
     >
-      <div className="flex flex-col items-center space-y-1">
+      <div className="flex flex-col items-center space-y-1 animate-bounce">
         <span className="text-sm">Узнать больше</span>
-        <div className="w-4 h-6 border-2 border-nature-green-800 rounded-full flex justify-center">
-          <div className="w-1 h-2 bg-nature-green-800 rounded-full mt-1"></div>
+        <div className="w-4 h-6 border-2 border-nature-green-800 rounded-full flex justify-center relative overflow-hidden">
+          <div className="w-1 h-2 bg-nature-green-800 rounded-full mt-1 animate-pulse"></div>
         </div>
       </div>
     </button>
