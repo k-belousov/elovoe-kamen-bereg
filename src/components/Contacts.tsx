@@ -157,7 +157,7 @@ const Contacts = () => {
                   </div>
                   <div className="flex justify-between">
                     <span>Заезд/выезд:</span>
-                    <span>14:00 / 12:00</span>
+                    <span>с 14:00 /  до 14:00</span>
                   </div>
                 </div>
               </div>
