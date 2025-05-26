@@ -6,7 +6,7 @@ const Map = () => {
   const [activeMap, setActiveMap] = useState('twoGis');
   
   const mapSources = {
-    twoGis: 'https://widgets.2gis.com/widget?type=firmsonmap&options=%7B%22pos%22%3A60.316781%2C55.004665%2C10.3%7D',
+    twoGis: 'https://widgets.2gis.com/widget?type=route&options=%7B%22zoom%22%3A10%2C%22coord%22%3A%5B60.316781%2C55.004665%5D%2C%22dir%22%3A%5B60.316781%2C55.004665%5D%2C%22from%22%3A%2261.402554%2C55.159902%22%2C%22to%22%3A%2260.316781%2C55.004665%22%7D',
     yandex: 'https://yandex.ru/map-widget/v1/?ll=60.855114%2C55.041500&mode=routes&rtext=55.159902%2C61.402554~55.004665%2C60.316781&rtt=auto&z=10.3',
     google: 'https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d177327.27249835012!2d60.54801562272488!3d55.0754697033314!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x43c592cb104a3a8d%3A0xef224a2a6d1711bf!2z0KfQtdC70Y_QsdC40L3RgdC6LCDQp9C10LvRj9Cx0LjQvdGB0YzQutCwINC-0LHQu9Cw0YHRgtGM!3m2!1d55.1644419!2d61.4368432!4m5!1s0x43c56bef9e487133%3A0x18901042074edcb8!2z0JrQsNC80LXQvdGB0LrQvtC5INCx0LXRgNC-0LQsINCh0LXRgNCy0ZbQutGB0YPQs9C40Y8!3m2!1d55.0053557!2d60.3180498!5e0!3m2!1sru!2sru!4v1718289348029!5m2!1sru!2sru'
   };
@@ -38,6 +38,7 @@ const Map = () => {
               allowFullScreen
               loading="lazy"
               className="w-full h-full"
+              referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
           </div>
 
