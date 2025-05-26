@@ -27,10 +27,7 @@ const Footer = () => {
                 </div>
                 <div className="text-xl font-semibold">Каменный берег</div>
               </div>
-              <p className="text-nature-green-200 mb-6 leading-relaxed">
-                Уютная база отдыха на берегу чистого озера в живописном уголке Тверской области. 
-                Идеальное место для семейного отдыха и восстановления сил.
-              </p>
+              <p className="text-nature-green-200 mb-6 leading-relaxed">Уютная база отдыха на берегу чистого озера в живописном уголке озера Еловое. Идеальное место для семейного отдыха и восстановления сил.</p>
               <div className="flex items-center space-x-2 text-nature-green-300">
                 
                 
