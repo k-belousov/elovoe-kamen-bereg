@@ -187,7 +187,7 @@ const Rooms = () => {
             </svg>
           </button>
           <button
-            onClick={nextSlide}
+            onClick={scrollNext}
             className="absolute right-4 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center text-nature-green-600 hover:text-nature-green-800 transition-colors duration-200 z-10 bg-white/80 rounded-full shadow-lg backdrop-blur-sm"
           >
             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
