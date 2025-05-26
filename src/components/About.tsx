@@ -33,7 +33,7 @@ const About = () => {
           {/* Изображение - увеличенное и выровненное */}
           <div className="relative h-[600px] lg:h-[800px]">
             <img 
-              src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+              src="https://res.cloudinary.com/dwhb1qzhw/image/upload/e_gen_remove:prompt_manhole;multiple_true/e_gen_remove:prompt_parked%20cars;remove-shadow_true/e_gen_replace:from_parked%20cars;to_What%20if%20the%20cars%20weren't%20in%20the%20picture;preserve-geometry_true;multiple_true/e_gen_restore/q_auto/e_enhance/e_contrast:-10/e_gamma/e_brightness:-10/q_auto:best/e_gen_replace:from_sky;to_The%20natural%20sky%20is%20clear%20with%20few%20white%20clouds%20and%20no%20sun;multiple_true/f_webp/e_enhance/e_enhance/XXXL_ujedjs" 
               alt="База отдыха Каменный берег" 
               className="w-full h-full object-cover rounded-2xl shadow-2xl filter sepia-[0.3] saturate-150 hue-rotate-[10deg]"
             />
