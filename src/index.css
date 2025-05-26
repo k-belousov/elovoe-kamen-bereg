@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -93,10 +92,12 @@
   body {
     @apply bg-background text-foreground font-inter;
     scroll-behavior: smooth;
+    overflow-x: hidden; /* Предотвращаем горизонтальную прокрутку */
   }
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden; /* Предотвращаем горизонтальную прокрутку */
   }
 }
 
@@ -111,5 +112,35 @@
 
   .forest-gradient {
     background: linear-gradient(180deg, rgba(45, 154, 91, 0.1) 0%, rgba(240, 249, 244, 0.8) 100%);
+  }
+
+  /* Стили для слайдера */
+  .embla {
+    overflow: hidden;
+    touch-action: pan-y; /* Разрешаем вертикальную прокрутку */
+  }
+
+  .embla__container {
+    display: flex;
+    touch-action: pan-x; /* Разрешаем горизонтальную прокрутку */
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .embla__slide {
+    flex: 0 0 100%;
+    min-width: 0;
+  }
+
+  @media (min-width: 768px) {
+    .embla__slide {
+      flex: 0 0 50%;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .embla__slide {
+      flex: 0 0 33.333333%;
+    }
   }
 }
