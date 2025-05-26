@@ -17,8 +17,8 @@ const FloatingNavButton = () => {
     { id: 'faq', name: 'FAQ' }
   ];
 
-  // Секции с темным фоном, где кнопка должна быть белой
-  const darkSections = ['telegram'];
+  // Секции с темным фоном или где кнопка должна быть белой
+  const darkSections = ['gallery', 'reviews', 'telegram'];
 
   const scrollToNextSection = () => {
     const nextIndex = (currentSection + 1) % sections.length;
@@ -26,7 +26,12 @@ const FloatingNavButton = () => {
     
     const element = document.getElementById(nextSection.id);
     if (element) {
-      element.scrollIntoView({
+      // Для блока "Как нас найти" делаем отступ сверху, чтобы заголовок не скрывался под шапкой
+      const offset = nextSection.id === 'map' ? 100 : 0;
+      const elementPosition = element.offsetTop - offset;
+      
+      window.scrollTo({
+        top: elementPosition,
         behavior: 'smooth'
       });
       setCurrentSection(nextIndex);
