@@ -52,10 +52,9 @@ const FloatingNavButton = () => {
   return (
     <button
       onClick={scrollToNextSection}
-      className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 bg-nature-gold-500 hover:bg-nature-gold-600 text-nature-green-800 px-6 py-3 rounded-full shadow-lg transition-all duration-200 font-medium"
+      className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 text-nature-green-800 font-medium"
       style={{ 
-        animation: 'bounce 3s infinite',
-        backdropFilter: 'blur(10px)'
+        animation: 'bounce 3s infinite'
       }}
     >
       <div className="flex flex-col items-center space-y-1">

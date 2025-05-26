@@ -1,5 +1,4 @@
-
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Users } from 'lucide-react';
 import RoomDetailModal from './RoomDetailModal';
@@ -17,6 +16,10 @@ const Rooms = () => {
     }
   });
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Touch/swipe state
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
   const rooms = [
     {
@@ -66,6 +69,33 @@ const Rooms = () => {
     }
   ];
 
+  // Swipe detection
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      scrollNext();
+    }
+    if (isRightSwipe) {
+      scrollPrev();
+    }
+  };
+
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
   }, [emblaApi]);
@@ -98,7 +128,7 @@ const Rooms = () => {
     setCurrentSlide(emblaApi.selectedScrollSnap());
   }, [emblaApi]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!emblaApi) return;
     onSelect();
     emblaApi.on('select', onSelect);
@@ -118,9 +148,15 @@ const Rooms = () => {
           </p>
         </div>
 
-        {/* Слайдер номеров */}
+        {/* Слайдер номеров с поддержкой свайпов */}
         <div className="relative overflow-hidden">
-          <div className="embla" ref={emblaRef}>
+          <div 
+            className="embla" 
+            ref={emblaRef}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
             <div className="embla__container flex">
               {rooms.map(room => (
                 <div key={room.id} className="embla__slide flex-none w-full md:w-1/2 lg:w-1/3 px-3">
