@@ -59,31 +59,7 @@ const Map = () => {
               loading="lazy"
               className="w-full h-full"
             ></iframe>
-          </div>
-
-          {/* Подсказки под картой */}
-          <div className="p-6 bg-white">
-            <div className="grid md:grid-cols-2 gap-6 text-center">
-              <div>
-                <div className="w-12 h-12 bg-nature-green-600 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <span className="text-white text-xl">🚌</span>
-                </div>
-                <h4 className="font-semibold text-nature-green-800 mb-2">На автобусе</h4>
-                <p className="text-nature-green-600 text-sm">
-                  До Чебаркуля, затем такси 10–15 минут
-                </p>
-              </div>
-              <div>
-                <div className="w-12 h-12 bg-nature-green-600 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <span className="text-white text-xl">🚂</span>
-                </div>
-                <h4 className="font-semibold text-nature-green-800 mb-2">На поезде</h4>
-                <p className="text-nature-green-600 text-sm">
-                  Поезд до Челябинска, далее авто или такси
-                </p>
-              </div>
-            </div>
-          </div>
+          </div>      
         </div>
       </div>
     </section>
