@@ -7,10 +7,10 @@ const Map = () => {
 
   const iframeSrc = `https://yandex.ru/map-widget/v1/?ll=60.855114%2C55.041500&mode=routes&rtext=55.159902%2C61.402554~55.004665%2C60.316781&rtt=${routeType}&z=10.3`;
 
-  const externalYandexUrl =
-    'https://yandex.ru/maps/?ll=60.855114%2C55.041500&mode=routes&rtext=55.159902%2C61.402554~55.004665%2C60.316781&rtt=' +
-    routeType +
-    '&ruri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1MzE1OTUyNxIg0KDQvtGB0YHQuNGPLCDQp9C10LvRj9Cx0LjQvdGB0LoiCg04nHVCFb2jXEI%2C~ymapsbm1%3A%2F%2Forg%3Foid%3D203268538693&z=10.3';
+  const yandexLinks = {
+    auto: 'https://yandex.ru/maps/?ll=60.855114%2C55.041500&mode=routes&rtext=55.159902%2C61.402554~55.004665%2C60.316781&rtt=auto&ruri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1MzE1OTUyNxIg0KDQvtGB0YHQuNGPLCDQp9C10LvRj9Cx0LjQvdGB0LoiCg04nHVCFb2jXEI%2C~ymapsbm1%3A%2F%2Forg%3Foid%3D203268538693&z=10.3',
+    masstransit: 'https://yandex.ru/maps/?ll=60.862493%2C55.035351&mode=routes&rtext=55.159902%2C61.402554~55.004665%2C60.316781&rtt=mt&ruri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1MzE1OTUyNxIg0KDQvtGB0YHQuNGPLCDQp9C10LvRj9Cx0LjQvdGB0LoiCg04nHVCFb2jXEI%2C~ymapsbm1%3A%2F%2Forg%3Foid%3D203268538693&z=10.3',
+  };
 
   const externalGoogleUrl =
     'https://www.google.com/maps/dir/Челябинск,+Челябинская+область,+Россия/Каменный+Берег,+Чебаркуль,+Челябинская+обл.,+Россия,+456441/@55.0754697,60.5480156,82439m/data=!3m2!1e3!4b1!4m14!4m13!1m5!1m1!1s0x43c592cb104a3a8d:0xef224a2a6d1711bf!2m2!1d61.4368432!2d55.1644419!1m5!1m1!1s0x43c56bef9e487133:0x18901042074edcb8!2m2!1d60.3180498!2d55.0053557!3e0?entry=ttu&g_ep=EgoyMDI1MDUyMS4wIKXMDSoASAFQAw%3D%3D';
@@ -29,7 +29,7 @@ const Map = () => {
           </p>
         </div>
 
-        {/* Интерактивная карта с маршрутом */}
+        {/* Интерактивная карта */}
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
           {/* Переключатели и кнопки */}
           <div className="flex flex-wrap justify-center items-center gap-4 px-6 pt-6">
@@ -55,7 +55,7 @@ const Map = () => {
             </button>
 
             <a
-              href={externalYandexUrl}
+              href={yandexLinks[routeType]}
               target="_blank"
               rel="noopener noreferrer"
               className="ml-4 px-4 py-2 rounded-lg bg-nature-gold-600 text-white text-sm font-medium hover:bg-nature-gold-700"
