@@ -5,7 +5,7 @@ const TelegramFeed = () => {
   const [feed, setFeed] = useState([]);
 
   useEffect(() => {
-    fetch('https://<ВАШ-ЮЗЕРНЕЙМ>.github.io/telegram-feed-generator/feed.json')
+    fetch('https://oStepanovWinner.github.io/telegram-feed-generator/feed.json')
       .then(res => res.json())
       .then(setFeed)
       .catch(console.error);
