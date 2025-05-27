@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback, useEffect } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 
@@ -86,7 +85,7 @@ const Services = () => {
     if (!touchStart || !touchEnd) return;
     
     const distance = touchStart - touchEnd;
-    const minSwipeDistance = 120; // Increased sensitivity threshold
+    const minSwipeDistance = 50;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
 
@@ -134,7 +133,7 @@ const Services = () => {
         {/* Слайдер услуг с поддержкой свайпов */}
         <div className="relative">
           <div 
-            className="embla overflow-hidden pb-8" 
+            className="embla overflow-hidden pb-12" 
             ref={emblaRef}
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
@@ -184,17 +183,17 @@ const Services = () => {
           {/* Кнопки навигации */}
           <button
             onClick={scrollPrev}
-            className="absolute left-0 top-0 h-full w-16 flex items-center justify-center text-white hover:text-nature-green-600 transition-colors duration-200 z-10"
+            className="absolute left-0 top-0 h-full w-16 flex items-center justify-center bg-transparent hover:bg-transparent transition-colors duration-200 z-10"
           >
-            <svg className="h-8 w-8 drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="h-8 w-8 text-white drop-shadow-2xl filter drop-shadow-[0_0_8px_rgba(0,0,0,0.8)] hover:text-nature-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
           <button
             onClick={scrollNext}
-            className="absolute right-0 top-0 h-full w-16 flex items-center justify-center text-white hover:text-nature-green-600 transition-colors duration-200 z-10"
+            className="absolute right-0 top-0 h-full w-16 flex items-center justify-center bg-transparent hover:bg-transparent transition-colors duration-200 z-10"
           >
-            <svg className="h-8 w-8 drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="h-8 w-8 text-white drop-shadow-2xl filter drop-shadow-[0_0_8px_rgba(0,0,0,0.8)] hover:text-nature-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>

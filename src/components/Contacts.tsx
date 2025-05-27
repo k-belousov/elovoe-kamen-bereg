@@ -1,3 +1,4 @@
+
 import React from 'react';
 import BookingForm from './BookingForm';
 import { Button } from '@/components/ui/button';
@@ -103,7 +104,7 @@ const Contacts = () => {
                   <h3 className="text-2xl font-bold text-nature-green-800">
                     Бронирование
                   </h3>
-                  <BookingForm trigger={<Button className="bg-nature-gold-500 hover:bg-nature-green-600 text-white font-semibold px-6 py-2">
+                  <BookingForm trigger={<Button className="bg-nature-gold-500 hover:bg-nature-green-600 text-nature-green-800 font-semibold px-6 py-2">
                       Забронировать
                     </Button>} />
                 </div>

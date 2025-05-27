@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Phone, Mail, MessageCircle } from 'lucide-react';
 
@@ -113,15 +112,15 @@ const FAQ = () => {
             Свяжитесь с нами любым удобным способом, и мы с радостью поможем вам!
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="tel:+74951234567" className="inline-flex items-center space-x-2 bg-white text-nature-green-600 px-6 py-3 rounded-xl hover:bg-gray-100 transition-colors duration-200 font-medium">
+            <a href="tel:+79525129738" className="inline-flex items-center space-x-2 bg-white text-nature-green-600 px-6 py-3 rounded-xl hover:bg-gray-100 transition-colors duration-200 font-medium">
               <Phone size={18} />
               <span>Позвонить</span>
             </a>
-            <a href="mailto:info@kamenny-bereg.ru" className="inline-flex items-center space-x-2 bg-white text-nature-green-600 px-6 py-3 rounded-xl hover:bg-gray-100 transition-colors duration-200 font-medium">
+            <a href="mailto:chestem@mail.ru" className="inline-flex items-center space-x-2 bg-white text-nature-green-600 px-6 py-3 rounded-xl hover:bg-gray-100 transition-colors duration-200 font-medium">
               <Mail size={18} />
               <span>Написать</span>
             </a>
-            <a href="#" className="inline-flex items-center space-x-2 bg-white text-nature-green-600 px-6 py-3 rounded-xl hover:bg-gray-100 transition-colors duration-200 font-medium">
+            <a href="https://t.me/kamenniy_bereg" target="_blank" rel="noopener noreferrer" className="inline-flex items-center space-x-2 bg-white text-nature-green-600 px-6 py-3 rounded-xl hover:bg-gray-100 transition-colors duration-200 font-medium">
               <MessageCircle size={18} />
               <span>Telegram</span>
             </a>
