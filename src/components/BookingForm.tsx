@@ -36,7 +36,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ trigger }) => {
       <DialogTrigger asChild>
         {trigger}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md bg-white">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-nature-green-800 text-center">
             Бронирование номера
@@ -55,7 +55,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ trigger }) => {
               value={formData.name}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-3 border border-nature-green-300 rounded-lg focus:ring-2 focus:ring-nature-green-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-nature-green-300 rounded-lg focus:ring-2 focus:ring-nature-green-500 focus:border-transparent bg-white"
               placeholder="Введите ваше имя"
             />
           </div>
@@ -71,7 +71,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ trigger }) => {
               value={formData.phone}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-3 border border-nature-green-300 rounded-lg focus:ring-2 focus:ring-nature-green-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-nature-green-300 rounded-lg focus:ring-2 focus:ring-nature-green-500 focus:border-transparent bg-white"
               placeholder="+7 (999) 123-45-67"
             />
           </div>
@@ -86,7 +86,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ trigger }) => {
               value={formData.comment}
               onChange={handleInputChange}
               rows={4}
-              className="w-full px-4 py-3 border border-nature-green-300 rounded-lg focus:ring-2 focus:ring-nature-green-500 focus:border-transparent resize-none"
+              className="w-full px-4 py-3 border border-nature-green-300 rounded-lg focus:ring-2 focus:ring-nature-green-500 focus:border-transparent resize-none bg-white"
               placeholder="Дополнительные пожелания или вопросы..."
             />
           </div>
@@ -96,10 +96,10 @@ const BookingForm: React.FC<BookingFormProps> = ({ trigger }) => {
               <strong>Телефон базы отдыха:</strong>
             </p>
             <a 
-              href="tel:+74951234567" 
+              href="tel:+79525129738" 
               className="text-nature-green-800 font-semibold hover:text-nature-green-900 transition-colors"
             >
-              +7 (495) 123-45-67
+              +7-952-512-97-38
             </a>
           </div>
           
@@ -114,7 +114,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ trigger }) => {
             </Button>
             <Button 
               type="submit"
-              className="flex-1 bg-nature-gold-500 hover:bg-nature-gold-600 text-nature-green-800"
+              className="flex-1 bg-nature-green-600 hover:bg-nature-green-700 text-white"
             >
               Отправить заявку
             </Button>
