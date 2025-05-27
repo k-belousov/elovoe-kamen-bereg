@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -52,63 +52,21 @@ const Gallery = () => {
 
   const categories = ['Все', 'Природа', 'Номера', 'Территория'];
   const [activeCategory, setActiveCategory] = useState('Все');
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const filteredImages = activeCategory === 'Все' 
     ? galleryImages 
     : galleryImages.filter(img => img.category === activeCategory);
 
-  // Reset current index when category changes
-  useEffect(() => {
-    setCurrentIndex(0);
-  }, [activeCategory]);
-
-  // Touch/swipe state
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
-
-  // Swipe detection
-  const minSwipeDistance = 50;
-
-  const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-
-    if (isLeftSwipe) {
-      goToNext();
-    }
-    if (isRightSwipe) {
-      goToPrevious();
-    }
-  };
+  const [currentIndex, setCurrentIndex] = useState(Math.floor(filteredImages.length / 2));
 
   // Функция для перехода к предыдущему изображению с бесконечной прокруткой
   const goToPrevious = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
     setCurrentIndex(currentIndex === 0 ? filteredImages.length - 1 : currentIndex - 1);
-    setTimeout(() => setIsTransitioning(false), 300);
   };
 
   // Функция для перехода к следующему изображению с бесконечной прокруткой
   const goToNext = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
     setCurrentIndex(currentIndex === filteredImages.length - 1 ? 0 : currentIndex + 1);
-    setTimeout(() => setIsTransitioning(false), 300);
   };
 
   const getPrevIndex = () => {
@@ -119,12 +77,6 @@ const Gallery = () => {
     return currentIndex === filteredImages.length - 1 ? 0 : currentIndex + 1;
   };
 
-  const handleCategoryChange = (category: string) => {
-    setIsTransitioning(true);
-    setActiveCategory(category);
-    setTimeout(() => setIsTransitioning(false), 300);
-  };
-
   return (
     <section id="gallery" className="section-padding bg-nature-green-50 pb-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -133,7 +85,7 @@ const Gallery = () => {
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-nature-green-800 mb-6">
             Галерея
           </h2>
-          <div className="w-24 h-1 bg-nature-green-600 mx-auto mb-8"></div>
+          <div className="w-24 h-1 bg-nature-gold-500 mx-auto mb-8"></div>
           <p className="text-lg sm:text-xl text-nature-green-600 max-w-3xl mx-auto">
             Посмотрите, как прекрасно у нас на базе отдыха
           </p>
@@ -144,7 +96,7 @@ const Gallery = () => {
           {categories.map((category) => (
             <button
               key={category}
-              onClick={() => handleCategoryChange(category)}
+              onClick={() => setActiveCategory(category)}
               className={`px-6 py-2 rounded-full font-medium transition-all duration-200 ${
                 activeCategory === category
                   ? 'bg-nature-green-600 text-white shadow-lg'
@@ -158,12 +110,7 @@ const Gallery = () => {
 
         {/* Карусель изображений с центральным фокусом */}
         <div className="relative">
-          <div 
-            className="flex items-center justify-center space-x-0 lg:space-x-8 mb-8"
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
-          >
+          <div className="flex items-center justify-center space-x-0 lg:space-x-8 mb-8">
             {/* Левое изображение - скрыто на мобильных */}
             {filteredImages.length > 1 && (
               <div className="hidden lg:block w-48 h-32 overflow-hidden rounded-lg shadow-lg opacity-70 hover:opacity-100 transition-opacity cursor-pointer">
@@ -210,8 +157,7 @@ const Gallery = () => {
           {/* Навигационные стрелки с тенью */}
           <button
             onClick={goToPrevious}
-            disabled={isTransitioning}
-            className="absolute left-2 lg:left-0 top-1/2 -translate-y-1/2 h-full w-12 lg:w-16 flex items-center justify-center text-white/70 hover:text-nature-green-500 transition-colors duration-200 z-10 disabled:opacity-50"
+            className="absolute left-2 lg:left-0 top-1/2 -translate-y-1/2 h-full w-12 lg:w-16 flex items-center justify-center text-white/70 hover:text-nature-green-500 transition-colors duration-200 z-10"
             style={{ filter: 'drop-shadow(2px 2px 8px rgba(0,0,0,0.5))' }}
           >
             <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -221,8 +167,7 @@ const Gallery = () => {
           
           <button
             onClick={goToNext}
-            disabled={isTransitioning}
-            className="absolute right-2 lg:right-0 top-1/2 -translate-y-1/2 h-full w-12 lg:w-16 flex items-center justify-center text-white/70 hover:text-nature-green-500 transition-colors duration-200 z-10 disabled:opacity-50"
+            className="absolute right-2 lg:right-0 top-1/2 -translate-y-1/2 h-full w-12 lg:w-16 flex items-center justify-center text-white/70 hover:text-nature-green-500 transition-colors duration-200 z-10"
             style={{ filter: 'drop-shadow(2px 2px 8px rgba(0,0,0,0.5))' }}
           >
             <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -235,13 +180,7 @@ const Gallery = () => {
             {filteredImages.map((_, index) => (
               <button
                 key={index}
-                onClick={() => {
-                  if (!isTransitioning) {
-                    setIsTransitioning(true);
-                    setCurrentIndex(index);
-                    setTimeout(() => setIsTransitioning(false), 300);
-                  }
-                }}
+                onClick={() => setCurrentIndex(index)}
                 className={`w-2 h-2 rounded-full transition-colors duration-200 ${
                   index === currentIndex ? 'bg-nature-green-600' : 'bg-nature-green-300'
                 }`}

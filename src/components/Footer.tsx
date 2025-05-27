@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import LegalModal from './LegalModal';
 const Footer = () => {
@@ -45,14 +44,14 @@ const Footer = () => {
                 </div>
                 <div>
                   <p className="text-sm text-nature-green-300">Телефон:</p>
-                  <a href="tel:+79525129738" className="hover:text-white transition-colors">
-                    +7-952-512-97-38
+                  <a href="tel:+74951234567" className="hover:text-white transition-colors">
+                    +7 (495) 123-45-67
                   </a>
                 </div>
                 <div>
                   <p className="text-sm text-nature-green-300">Email:</p>
-                  <a href="mailto:chestem@mail.ru" className="hover:text-white transition-colors">
-                    chestem@mail.ru
+                  <a href="mailto:info@kamenny-bereg.ru" className="hover:text-white transition-colors">
+                    info@kamenny-bereg.ru
                   </a>
                 </div>
               </div>

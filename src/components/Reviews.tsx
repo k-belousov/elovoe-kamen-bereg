@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback, useEffect } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 
@@ -12,7 +11,6 @@ const Reviews = () => {
     }
   });
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [slidesInView, setSlidesInView] = useState(1);
 
   // Touch/swipe state
   const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -63,29 +61,9 @@ const Reviews = () => {
     avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80'
   }];
 
-  // Calculate slides in view based on screen size
-  useEffect(() => {
-    const updateSlidesInView = () => {
-      if (window.innerWidth >= 1024) {
-        setSlidesInView(3);
-      } else if (window.innerWidth >= 768) {
-        setSlidesInView(2);
-      } else {
-        setSlidesInView(1);
-      }
-    };
-
-    updateSlidesInView();
-    window.addEventListener('resize', updateSlidesInView);
-    return () => window.removeEventListener('resize', updateSlidesInView);
-  }, []);
-
-  // Calculate total pages
-  const totalPages = Math.ceil(reviews.length / slidesInView);
-
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, index) => (
-      <span key={index} className={`text-lg ${index < rating ? 'text-nature-green-600' : 'text-gray-300'}`}>
+      <span key={index} className={`text-lg ${index < rating ? 'text-nature-gold-500' : 'text-gray-300'}`}>
         ★
       </span>
     ));
@@ -142,7 +120,7 @@ const Reviews = () => {
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-nature-green-800 mb-6">
             Отзывы
           </h2>
-          <div className="w-24 h-1 bg-nature-green-600 mx-auto mb-8"></div>
+          <div className="w-24 h-1 bg-nature-gold-500 mx-auto mb-8"></div>
           <p className="text-lg sm:text-xl text-nature-green-600 max-w-3xl mx-auto">
             Что говорят наши гости о базе отдыха "Каменный берег"
           </p>
@@ -203,12 +181,12 @@ const Reviews = () => {
           
           {/* Индикаторы точек */}
           <div className="flex justify-center mt-8 space-x-2">
-            {Array.from({ length: totalPages }).map((_, index) => (
+            {reviews.map((_, index) => (
               <button
                 key={index}
-                onClick={() => emblaApi?.scrollTo(index * slidesInView)}
+                onClick={() => emblaApi?.scrollTo(index)}
                 className={`w-3 h-3 rounded-full transition-colors ${
-                  Math.floor(currentSlide / slidesInView) === index ? 'bg-nature-green-600' : 'bg-nature-green-300'
+                  index === currentSlide ? 'bg-nature-green-600' : 'bg-nature-green-300'
                 }`}
               />
             ))}

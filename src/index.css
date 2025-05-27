@@ -23,8 +23,8 @@
     --muted: 240 249 244;
     --muted-foreground: 117 125 117;
 
-    --accent: 45 154 91;
-    --accent-foreground: 255 255 255;
+    --accent: 255 190 11;
+    --accent-foreground: 44 82 52;
 
     --destructive: 220 38 38;
     --destructive-foreground: 255 255 255;
@@ -64,7 +64,7 @@
     --muted: 44 82 52;
     --muted-foreground: 156 163 175;
 
-    --accent: 45 154 91;
+    --accent: 255 190 11;
     --accent-foreground: 23 37 42;
 
     --destructive: 220 38 38;
@@ -91,18 +91,12 @@
   }
 
   body {
-    @apply bg-white text-foreground font-inter;
+    @apply bg-background text-foreground font-inter;
     scroll-behavior: smooth;
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
   }
 
   html {
     scroll-behavior: smooth;
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
   }
 }
 
@@ -117,20 +111,5 @@
 
   .forest-gradient {
     background: linear-gradient(180deg, rgba(45, 154, 91, 0.1) 0%, rgba(240, 249, 244, 0.8) 100%);
-  }
-
-  .embla {
-    overflow: hidden;
-    width: 100%;
-  }
-
-  .embla__container {
-    display: flex;
-    touch-action: pan-y;
-  }
-
-  .embla__slide {
-    flex: 0 0 auto;
-    min-width: 0;
   }
 }
