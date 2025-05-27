@@ -1,8 +1,11 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // Реальные фотографии для галереи
   const galleryImages = [
@@ -57,7 +60,37 @@ const Gallery = () => {
     ? galleryImages 
     : galleryImages.filter(img => img.category === activeCategory);
 
-  const [currentIndex, setCurrentIndex] = useState(Math.floor(filteredImages.length / 2));
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Обновляем currentIndex при изменении категории
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [activeCategory]);
+
+  // Touch handlers для свайпов
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe && filteredImages.length > 0) {
+      goToNext();
+    }
+    if (isRightSwipe && filteredImages.length > 0) {
+      goToPrevious();
+    }
+  };
 
   // Функция для перехода к предыдущему изображению с бесконечной прокруткой
   const goToPrevious = () => {
@@ -77,6 +110,45 @@ const Gallery = () => {
     return currentIndex === filteredImages.length - 1 ? 0 : currentIndex + 1;
   };
 
+  // Если нет отфильтрованных изображений, показываем заглушку
+  if (filteredImages.length === 0) {
+    return (
+      <section id="gallery" className="section-padding bg-nature-green-50 pb-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-nature-green-800 mb-6">
+              Галерея
+            </h2>
+            <div className="w-24 h-1 bg-nature-green-500 mx-auto mb-8"></div>
+            <p className="text-lg sm:text-xl text-nature-green-600 max-w-3xl mx-auto">
+              Посмотрите, как прекрасно у нас на базе отдыха
+            </p>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setActiveCategory(category)}
+                className={`px-6 py-2 rounded-full font-medium transition-all duration-200 ${
+                  activeCategory === category
+                    ? 'bg-nature-green-600 text-white shadow-lg'
+                    : 'bg-white text-nature-green-600 hover:bg-nature-green-100'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+
+          <div className="text-center py-20">
+            <p className="text-nature-green-600">Изображения в этой категории временно недоступны</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="gallery" className="section-padding bg-nature-green-50 pb-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -85,7 +157,7 @@ const Gallery = () => {
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-nature-green-800 mb-6">
             Галерея
           </h2>
-          <div className="w-24 h-1 bg-nature-gold-500 mx-auto mb-8"></div>
+          <div className="w-24 h-1 bg-nature-green-500 mx-auto mb-8"></div>
           <p className="text-lg sm:text-xl text-nature-green-600 max-w-3xl mx-auto">
             Посмотрите, как прекрасно у нас на базе отдыха
           </p>
@@ -110,7 +182,13 @@ const Gallery = () => {
 
         {/* Карусель изображений с центральным фокусом */}
         <div className="relative">
-          <div className="flex items-center justify-center space-x-0 lg:space-x-8 mb-8">
+          <div 
+            className="flex items-center justify-center space-x-0 lg:space-x-8 mb-8"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            ref={containerRef}
+          >
             {/* Левое изображение - скрыто на мобильных */}
             {filteredImages.length > 1 && (
               <div className="hidden lg:block w-48 h-32 overflow-hidden rounded-lg shadow-lg opacity-70 hover:opacity-100 transition-opacity cursor-pointer">

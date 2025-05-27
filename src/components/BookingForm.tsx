@@ -96,10 +96,10 @@ const BookingForm: React.FC<BookingFormProps> = ({ trigger }) => {
               <strong>Телефон базы отдыха:</strong>
             </p>
             <a 
-              href="tel:+74951234567" 
+              href="tel:+79525129738" 
               className="text-nature-green-800 font-semibold hover:text-nature-green-900 transition-colors"
             >
-              +7 (495) 123-45-67
+              +7-952-512-97-38
             </a>
           </div>
           
@@ -114,7 +114,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ trigger }) => {
             </Button>
             <Button 
               type="submit"
-              className="flex-1 bg-nature-gold-500 hover:bg-nature-gold-600 text-nature-green-800"
+              className="flex-1 bg-nature-green-500 hover:bg-nature-green-600 text-white"
             >
               Отправить заявку
             </Button>

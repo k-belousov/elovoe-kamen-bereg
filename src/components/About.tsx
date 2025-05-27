@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Home, Waves, Activity, Bath } from 'lucide-react';
+import { Home, Waves, Trees, ChefHat } from 'lucide-react';
 
 const About = () => {
   const features = [
@@ -15,14 +15,14 @@ const About = () => {
       icon: Waves
     },
     {
-      title: 'Активный отдых',
-      description: 'Множество развлечений для всей семьи',
-      icon: Activity
+      title: 'Отдых на природе',
+      description: 'Прогулки, рыбалка и единение с природой',
+      icon: Trees
     },
     {
-      title: 'Русская баня',
-      description: 'Традиционная баня с вениками и купелью',
-      icon: Bath
+      title: 'Кафе-столовая',
+      description: 'Домашняя кухня и свежие продукты',
+      icon: ChefHat
     }
   ];
 
@@ -46,7 +46,7 @@ const About = () => {
               <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-nature-green-800 mb-6 lg:mb-8">
                 О базе отдыха
               </h2>
-              <div className="w-24 h-1 bg-nature-gold-500 mb-6 lg:mb-8"></div>
+              <div className="w-24 h-1 bg-nature-green-500 mb-6 lg:mb-8"></div>
               
               <p className="text-base lg:text-lg text-nature-green-600 mb-6 lg:mb-8 leading-relaxed">
                 "Каменный берег" — это уютная база отдыха на живописном берегу озера, 
