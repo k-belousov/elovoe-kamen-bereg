@@ -1,3 +1,4 @@
+
 import React, { useState, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Users } from 'lucide-react';
@@ -11,18 +12,16 @@ const Rooms = () => {
     loop: true,
     align: 'center',
     breakpoints: {
-      '(min-width: 768px)': { slidesToScroll: 2 },
-      '(min-width: 1024px)': { slidesToScroll: 3 }
+      '(min-width: 768px)': { slidesToScroll: 1 },
+      '(min-width: 1024px)': { slidesToScroll: 1 }
     }
   });
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [slidesPerView, setSlidesPerView] = useState(1);
 
   // Touch/swipe state with improved sensitivity
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
-
-  // Swipe detection with better sensitivity
-  const minSwipeDistance = 80;
 
   const rooms = [
     {
@@ -72,6 +71,26 @@ const Rooms = () => {
     }
   ];
 
+  // Calculate slides per view based on screen size
+  useEffect(() => {
+    const updateSlidesPerView = () => {
+      if (window.innerWidth >= 1024) {
+        setSlidesPerView(3);
+      } else if (window.innerWidth >= 768) {
+        setSlidesPerView(2);
+      } else {
+        setSlidesPerView(1);
+      }
+    };
+
+    updateSlidesPerView();
+    window.addEventListener('resize', updateSlidesPerView);
+    return () => window.removeEventListener('resize', updateSlidesPerView);
+  }, []);
+
+  // Calculate total pages based on slides per view
+  const totalPages = Math.ceil(rooms.length / slidesPerView);
+
   const onTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(null);
     setTouchStart(e.targetTouches[0].clientX);
@@ -85,6 +104,7 @@ const Rooms = () => {
     if (!touchStart || !touchEnd) return;
     
     const distance = touchStart - touchEnd;
+    const minSwipeDistance = 120; // Increased sensitivity threshold
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
 
@@ -151,7 +171,7 @@ const Rooms = () => {
         {/* Слайдер номеров с поддержкой свайпов */}
         <div className="relative">
           <div 
-            className="embla overflow-hidden" 
+            className="embla overflow-hidden pb-8" 
             ref={emblaRef}
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
@@ -216,29 +236,29 @@ const Rooms = () => {
           {/* Кнопки навигации */}
           <button
             onClick={scrollPrev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center text-white hover:text-nature-green-600 transition-colors duration-200 z-10 bg-white/10 hover:bg-white rounded-full shadow-lg backdrop-blur-sm border border-white/20"
+            className="absolute left-0 top-0 h-full w-16 flex items-center justify-center text-white hover:text-nature-green-600 transition-colors duration-200 z-10"
           >
-            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="h-8 w-8 drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
           <button
             onClick={scrollNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center text-white hover:text-nature-green-600 transition-colors duration-200 z-10 bg-white/10 hover:bg-white rounded-full shadow-lg backdrop-blur-sm border border-white/20"
+            className="absolute right-0 top-0 h-full w-16 flex items-center justify-center text-white hover:text-nature-green-600 transition-colors duration-200 z-10"
           >
-            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="h-8 w-8 drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
           
           {/* Индикаторы точек */}
           <div className="flex justify-center mt-8 space-x-2">
-            {rooms.map((_, index) => (
+            {Array.from({ length: totalPages }, (_, index) => (
               <button
                 key={index}
-                onClick={() => emblaApi?.scrollTo(index)}
+                onClick={() => emblaApi?.scrollTo(index * slidesPerView)}
                 className={`w-3 h-3 rounded-full transition-colors ${
-                  index === currentSlide ? 'bg-nature-green-600' : 'bg-nature-green-300'
+                  Math.floor(currentSlide / slidesPerView) === index ? 'bg-nature-green-600' : 'bg-nature-green-300'
                 }`}
               />
             ))}

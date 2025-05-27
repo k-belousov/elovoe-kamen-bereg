@@ -67,7 +67,7 @@ const Gallery = () => {
     setCurrentIndex(0);
   }, [activeCategory]);
 
-  // Touch handlers для свайпов
+  // Touch handlers для свайпов с улучшенной чувствительностью
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(null);
     setTouchStart(e.targetTouches[0].clientX);
@@ -81,8 +81,9 @@ const Gallery = () => {
     if (!touchStart || !touchEnd) return;
     
     const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
+    const minSwipeDistance = 80; // Increased sensitivity threshold
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
 
     if (isLeftSwipe && filteredImages.length > 0) {
       goToNext();
