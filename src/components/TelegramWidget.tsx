@@ -1,33 +1,6 @@
-
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const TelegramWidget = () => {
-  useEffect(() => {
-    // Создаем скрипт для виджета Telegram
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = 'https://telegram.org/js/telegram-widget.js?22';
-    script.setAttribute('data-telegram-post', 'kamenny_bereg/1');
-    script.setAttribute('data-width', '100%');
-    script.setAttribute('data-userpic', 'false');
-    script.setAttribute('data-color', '2D9A5B');
-    script.setAttribute('data-dark', '0');
-    
-    const container = document.getElementById('telegram-widget-container');
-    if (container) {
-      // Очищаем контейнер перед добавлением нового виджета
-      container.innerHTML = '';
-      container.appendChild(script);
-    }
-
-    return () => {
-      // Очищаем виджет при размонтировании
-      if (container) {
-        container.innerHTML = '';
-      }
-    };
-  }, []);
-
   return (
     <section id="telegram" className="section-padding bg-nature-green-800 px-4 sm:px-6 lg:px-8" data-section="telegram">
       <div className="max-w-4xl mx-auto">
@@ -42,7 +15,7 @@ const TelegramWidget = () => {
           </p>
         </div>
 
-        {/* Виджет */}
+        {/* Виджет: Telegram фид */}
         <div className="bg-white rounded-2xl p-4 sm:p-8 shadow-2xl">
           <div className="text-center mb-6">
             <div className="inline-flex items-center space-x-3 bg-nature-green-50 rounded-full px-6 py-3 shadow-md">
@@ -55,43 +28,17 @@ const TelegramWidget = () => {
             </div>
           </div>
 
-          {/* Контейнер для виджета */}
-          <div id="telegram-widget-container" className="max-w-2xl mx-auto min-h-[200px] flex items-center justify-center mb-6">
-            {/* Заглушка, пока виджет загружается */}
-            <div className="bg-nature-green-50 rounded-xl p-6 shadow-md border border-nature-green-200 w-full">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-nature-green-600 rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold">КБ</span>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-nature-green-800">Каменный берег</h4>
-                  <p className="text-sm text-nature-green-600">@kamenny_bereg</p>
-                </div>
-              </div>
-              <p className="text-nature-green-700 mb-4">
-                🌲 Добро пожаловать на наш канал! Здесь вы найдете:
-                <br />• Актуальную информацию о свободных местах
-                <br />• Фото с базы отдыха
-                <br />• Специальные предложения и скидки
-                <br />• Анонсы мероприятий
-              </p>
-              <div className="flex justify-between items-center text-sm text-nature-green-500">
-                <span>Сегодня в 14:30</span>
-                <span>👁 2.5k</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Кнопка подписки на канал */}
-          <div className="text-center">
-            <script 
-              async 
-              src="https://telegram.org/js/telegram-widget.js?22" 
-              data-telegram-share-url="t.me/kamenniy_bereg" 
-              data-comment="Следи за нашими новостями" 
-              data-size="large" 
-              data-text="Подписаться на канал"
-            />
+          {/* Новый iframe для фида канала */}
+          <div className="max-w-2xl mx-auto mb-6 rounded-xl overflow-hidden">
+            <iframe
+              src="https://t.me/s/kamenny_bereg"
+              width="100%"
+              height="600"
+              frameBorder="0"
+              style={{ border: 'none', overflow: 'hidden' }}
+              scrolling="no"
+              allowTransparency
+            ></iframe>
           </div>
 
           {/* Кнопки подписки */}
@@ -108,20 +55,9 @@ const TelegramWidget = () => {
                 </svg>
                 <span>Подписаться на канал</span>
               </a>
-              <a
-                href="https://t.me/kamenny_bereg_bot"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center space-x-2 bg-nature-green-600 text-white px-6 py-3 rounded-xl hover:bg-nature-green-700 transition-colors duration-200 font-medium"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12 0 6.628 5.373 12 12 12s12-5.372 12-12c0-6.627-5.373-12-12-12zm-2.117 18.021c-.126-.148-.232-.306-.312-.475-.081-.169-.121-.35-.121-.543 0-.323.088-.611.264-.864s.408-.446.695-.576c.287-.13.594-.195.921-.195.258 0 .503.043.736.129s.427.209.582.37c.155.161.277.356.366.585s.133.481.133.758c0 .29-.046.556-.138.798s-.224.455-.395.638c-.171.183-.378.328-.621.435s-.515.16-.817.16c-.337 0-.636-.067-.897-.201s-.468-.32-.621-.556z"/>
-                </svg>
-                <span>Написать боту</span>
-              </a>
             </div>
             <p className="text-sm text-nature-green-600 mt-4">
-              Быстрые ответы на вопросы и мгновенное бронирование через Telegram
+              Получайте свежие новости прямо в Telegram
             </p>
           </div>
         </div>
