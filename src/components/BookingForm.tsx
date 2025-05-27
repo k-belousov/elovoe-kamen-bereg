@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -17,7 +16,6 @@ const BookingForm: React.FC<BookingFormProps> = ({ trigger }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Здесь будет логика отправки формы
     console.log('Форма отправлена:', formData);
     setIsOpen(false);
     setFormData({ name: '', phone: '', comment: '' });
@@ -36,7 +34,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ trigger }) => {
       <DialogTrigger asChild>
         {trigger}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md bg-white">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-nature-green-800 text-center">
             Бронирование номера
@@ -114,7 +112,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ trigger }) => {
             </Button>
             <Button 
               type="submit"
-              className="flex-1 bg-nature-green-500 hover:bg-nature-green-600 text-white"
+              className="flex-1 bg-nature-gold-500 hover:bg-nature-gold-600 text-nature-green-800"
             >
               Отправить заявку
             </Button>

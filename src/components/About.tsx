@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Home, Waves, Trees, ChefHat } from 'lucide-react';
 
@@ -27,7 +26,7 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="section-padding bg-white">
+    <section id="about" className="section-padding bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 xl:gap-16 items-start">
           {/* Изображение - увеличенное и выровненное */}

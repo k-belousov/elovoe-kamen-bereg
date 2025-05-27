@@ -17,9 +17,12 @@ const Rooms = () => {
   });
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Touch/swipe state
+  // Touch/swipe state with improved sensitivity
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  // Swipe detection with better sensitivity
+  const minSwipeDistance = 80;
 
   const rooms = [
     {
@@ -68,9 +71,6 @@ const Rooms = () => {
       description: 'Роскошный номер люкс с панорамным видом на озеро и эксклюзивными удобствами.'
     }
   ];
-
-  // Swipe detection
-  const minSwipeDistance = 50;
 
   const onTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(null);
@@ -135,7 +135,7 @@ const Rooms = () => {
   }, [emblaApi, onSelect]);
 
   return (
-    <section id="rooms" className="section-padding bg-white pb-24">
+    <section id="rooms" className="section-padding bg-white pb-24 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Заголовок секции */}
         <div className="text-center mb-16">
@@ -149,9 +149,9 @@ const Rooms = () => {
         </div>
 
         {/* Слайдер номеров с поддержкой свайпов */}
-        <div className="relative overflow-hidden">
+        <div className="relative">
           <div 
-            className="embla" 
+            className="embla overflow-hidden" 
             ref={emblaRef}
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
@@ -216,7 +216,7 @@ const Rooms = () => {
           {/* Кнопки навигации */}
           <button
             onClick={scrollPrev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center text-nature-green-600 hover:text-nature-green-800 transition-colors duration-200 z-10 bg-white/80 rounded-full shadow-lg backdrop-blur-sm"
+            className="absolute left-4 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center text-white hover:text-nature-green-600 transition-colors duration-200 z-10 bg-white/10 hover:bg-white rounded-full shadow-lg backdrop-blur-sm border border-white/20"
           >
             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -224,7 +224,7 @@ const Rooms = () => {
           </button>
           <button
             onClick={scrollNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center text-nature-green-600 hover:text-nature-green-800 transition-colors duration-200 z-10 bg-white/80 rounded-full shadow-lg backdrop-blur-sm"
+            className="absolute right-4 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center text-white hover:text-nature-green-600 transition-colors duration-200 z-10 bg-white/10 hover:bg-white rounded-full shadow-lg backdrop-blur-sm border border-white/20"
           >
             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
