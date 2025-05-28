@@ -99,6 +99,7 @@
   html {
     scroll-behavior: smooth;
     overflow-x: hidden; /* Prevent horizontal scroll */
+    background-color: white; /* Ensure white background */
   }
 
   /* Ensure no element causes horizontal overflow */
@@ -115,10 +116,10 @@
   }
 
   .nature-gradient {
-    background: linear-gradient(135deg, #f0f9f4 0%, #dcf2e4 50%, #e8f5e8 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #ffffff 50%, #ffffff 100%);
   }
 
   .forest-gradient {
-    background: linear-gradient(180deg, rgba(45, 154, 91, 0.1) 0%, rgba(240, 249, 244, 0.8) 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.8) 100%);
   }
 }
