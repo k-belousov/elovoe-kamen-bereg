@@ -55,11 +55,11 @@ const FloatingNavButton = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Переключение цветов при анимации
+  // Синхронизация смены цвета с анимацией bounce (каждые 2 секунды в верхней точке)
   useEffect(() => {
     const interval = setInterval(() => {
       setIsWhite(prev => !prev);
-    }, 1000); // Каждую секунду меняем цвет
+    }, 2000); // Каждые 2 секунды меняем цвет (совпадает с циклом bounce)
 
     return () => clearInterval(interval);
   }, []);
@@ -74,7 +74,7 @@ const FloatingNavButton = () => {
       className={`fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 ${buttonTextColor} font-medium transition-all duration-300 hover:scale-110`}
     >
       <div className="flex flex-col items-center space-y-1 animate-bounce">
-        <span className="text-sm">Узнать больше</span>
+        <span className="text-sm">Листать далее</span>
         <div className={`w-4 h-6 border-2 ${buttonBorderColor} rounded-full flex justify-center relative overflow-hidden transition-colors duration-500`}>
           <div className={`w-1 h-2 ${buttonBgColor} rounded-full mt-1 animate-pulse transition-colors duration-500`}></div>
         </div>
