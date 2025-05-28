@@ -107,7 +107,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ trigger }) => {
               type="button" 
               variant="outline" 
               onClick={() => setIsOpen(false)}
-              className="flex-1"
+              className="flex-1 border-gray-300 text-gray-700 hover:bg-gray-50"
             >
               Отмена
             </Button>

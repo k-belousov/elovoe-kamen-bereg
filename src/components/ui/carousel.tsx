@@ -156,7 +156,7 @@ const CarouselContent = React.forwardRef<
   const { carouselRef, orientation } = useCarousel()
 
   return (
-    <div ref={carouselRef} className="overflow-hidden">
+    <div ref={carouselRef} className="embla overflow-hidden pb-[30px]">
       <div
         ref={ref}
         className={cn(
@@ -183,7 +183,8 @@ const CarouselItem = React.forwardRef<
       role="group"
       aria-roledescription="slide"
       className={cn(
-        "min-w-0 shrink-0 grow-0 basis-full",
+        "min-w-0 shrink-0 grow-0",
+        "basis-full sm:basis-1/2 lg:basis-1/3",
         orientation === "horizontal" ? "pl-4" : "pt-4",
         className
       )}
@@ -205,9 +206,9 @@ const CarouselPrevious = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "absolute h-12 w-12 rounded-full bg-transparent border-0 text-white/50 hover:text-nature-green-500 hover:bg-transparent transition-colors duration-200 z-10",
+        "absolute h-full w-12 rounded-none bg-transparent border-0 text-white/50 hover:text-nature-green-500 hover:bg-transparent transition-colors duration-200 z-10",
         orientation === "horizontal"
-          ? "left-4 top-1/2 -translate-y-1/2"
+          ? "left-0 top-0"
           : "top-4 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
@@ -215,7 +216,7 @@ const CarouselPrevious = React.forwardRef<
       onClick={scrollPrev}
       {...props}
     >
-      <ArrowLeft className="h-6 w-6" />
+      <ArrowLeft className="h-6 w-6" style={{ filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.7))' }} />
       <span className="sr-only">Previous slide</span>
     </Button>
   )
@@ -234,9 +235,9 @@ const CarouselNext = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "absolute h-12 w-12 rounded-full bg-transparent border-0 text-white/50 hover:text-nature-green-500 hover:bg-transparent transition-colors duration-200 z-10",
+        "absolute h-full w-12 rounded-none bg-transparent border-0 text-white/50 hover:text-nature-green-500 hover:bg-transparent transition-colors duration-200 z-10",
         orientation === "horizontal"
-          ? "right-4 top-1/2 -translate-y-1/2"
+          ? "right-0 top-0"
           : "bottom-4 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
@@ -244,7 +245,7 @@ const CarouselNext = React.forwardRef<
       onClick={scrollNext}
       {...props}
     >
-      <ArrowRight className="h-6 w-6" />
+      <ArrowRight className="h-6 w-6" style={{ filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.7))' }} />
       <span className="sr-only">Next slide</span>
     </Button>
   )

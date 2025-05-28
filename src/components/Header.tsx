@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 
@@ -42,6 +43,25 @@ const Header = () => {
       }
     }
     
+    if (sectionId === 'contacts') {
+      // Для контактов скроллим к блоку бронирования
+      const contactsElement = document.getElementById('contacts');
+      if (contactsElement) {
+        const bookingElement = contactsElement.querySelector('.lg\\:grid-cols-2');
+        if (bookingElement) {
+          const offsetTop = contactsElement.offsetTop + (bookingElement as HTMLElement).offsetTop - 80;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+        } else {
+          contactsElement.scrollIntoView({ behavior: 'smooth' });
+        }
+        setIsMobileMenuOpen(false);
+        return;
+      }
+    }
+    
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -62,8 +82,8 @@ const Header = () => {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg h-16' : 'bg-transparent h-16'
-    }`}>
+      isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
+    } h-16`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Логотип */}

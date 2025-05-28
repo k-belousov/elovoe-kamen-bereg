@@ -81,7 +81,7 @@ const Gallery = () => {
     if (!touchStart || !touchEnd) return;
     
     const distance = touchStart - touchEnd;
-    const minSwipeDistance = 80; // Increased sensitivity threshold
+    const minSwipeDistance = 150; // Increased sensitivity threshold
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
 
@@ -120,7 +120,7 @@ const Gallery = () => {
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-nature-green-800 mb-6">
               Галерея
             </h2>
-            <div className="w-24 h-1 bg-nature-green-500 mx-auto mb-8"></div>
+            <div className="w-24 h-1 bg-nature-gold-500 mx-auto mb-8"></div>
             <p className="text-lg sm:text-xl text-nature-green-600 max-w-3xl mx-auto">
               Посмотрите, как прекрасно у нас на базе отдыха
             </p>
@@ -158,7 +158,7 @@ const Gallery = () => {
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-nature-green-800 mb-6">
             Галерея
           </h2>
-          <div className="w-24 h-1 bg-nature-green-500 mx-auto mb-8"></div>
+          <div className="w-24 h-1 bg-nature-gold-500 mx-auto mb-8"></div>
           <p className="text-lg sm:text-xl text-nature-green-600 max-w-3xl mx-auto">
             Посмотрите, как прекрасно у нас на базе отдыха
           </p>
@@ -233,13 +233,12 @@ const Gallery = () => {
             )}
           </div>
 
-          {/* Навигационные стрелки с тенью */}
+          {/* Навигационные стрелки с улучшенной тенью */}
           <button
             onClick={goToPrevious}
             className="absolute left-2 lg:left-0 top-1/2 -translate-y-1/2 h-full w-12 lg:w-16 flex items-center justify-center text-white/70 hover:text-nature-green-500 transition-colors duration-200 z-10"
-            style={{ filter: 'drop-shadow(2px 2px 8px rgba(0,0,0,0.5))' }}
           >
-            <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.7))' }}>
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
@@ -247,9 +246,8 @@ const Gallery = () => {
           <button
             onClick={goToNext}
             className="absolute right-2 lg:right-0 top-1/2 -translate-y-1/2 h-full w-12 lg:w-16 flex items-center justify-center text-white/70 hover:text-nature-green-500 transition-colors duration-200 z-10"
-            style={{ filter: 'drop-shadow(2px 2px 8px rgba(0,0,0,0.5))' }}
           >
-            <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.7))' }}>
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>

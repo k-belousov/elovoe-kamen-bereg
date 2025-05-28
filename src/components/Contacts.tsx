@@ -27,7 +27,7 @@ const Contacts = () => {
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-nature-green-800 mb-6">
             Контакты
           </h2>
-          <div className="w-24 h-1 bg-nature-green-500 mx-auto mb-8"></div>
+          <div className="w-24 h-1 bg-nature-gold-500 mx-auto mb-8"></div>
           <p className="text-lg sm:text-xl text-nature-green-600 max-w-3xl mx-auto">
             Свяжитесь с нами для бронирования или получения дополнительной информации
           </p>
@@ -104,7 +104,7 @@ const Contacts = () => {
                   <h3 className="text-2xl font-bold text-nature-green-800">
                     Бронирование
                   </h3>
-                  <BookingForm trigger={<Button className="bg-nature-gold-500 hover:bg-nature-green-600 text-nature-green-800 font-semibold px-6 py-2">
+                  <BookingForm trigger={<Button className="bg-nature-gold-500 hover:bg-nature-gold-600 text-nature-green-800 hover:text-white transition-colors font-semibold px-6 py-2">
                       Забронировать
                     </Button>} />
                 </div>

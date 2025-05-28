@@ -39,9 +39,9 @@ const RoomDetailModal: React.FC<RoomDetailModalProps> = ({ room, isOpen, onClose
           <h2 className="text-2xl font-bold text-nature-green-800">{room.name}</h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-600"
           >
-            <X size={24} className="text-gray-600" />
+            <X size={24} />
           </button>
         </div>
 
